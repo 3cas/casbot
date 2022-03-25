@@ -4,10 +4,10 @@ import logging
 import os
 import time
 
-import ext.util as u
-from ext.owner import Owner
-from ext.test import Test
-from ext.misc import Misc
+import cb_ext.util as u
+from cb_ext.owner import Owner
+from cb_ext.test import Test
+from cb_ext.misc import Misc
 
 bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS, aka >>#0001.", owner_ids=u.owners)
 
@@ -29,7 +29,7 @@ async def on_message(message):
     if message.content.startswith('c!hello'):
         await message.channel.send('Hello!')
 
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("CASBOT_TOKEN")
 
 #if os.getlogin() == "casga":
 #    with open("C:\\Users\\casga\\Desktop\\bot-token.txt", "r") as f:

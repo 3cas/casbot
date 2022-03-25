@@ -2,7 +2,7 @@ from nextcord import *
 from nextcord.ext import commands
 import requests
 
-import ext.util as u
+import cb_ext.util as u
 
 class Misc(commands.Cog):
     def __init__(self, bot):

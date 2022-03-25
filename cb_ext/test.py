@@ -1,7 +1,7 @@
 from nextcord import *
 from nextcord.ext import commands
 
-import ext.util as u
+import cb_ext.util as u
 
 class Test(commands.Cog):
     def __init__(self, bot):
