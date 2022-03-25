@@ -4,10 +4,10 @@ import logging
 import os
 import time
 
-import cbext.util as u
-from cbext.owner import Owner
-from cbext.test import Test
-from cbext.misc import Misc
+import ext.util as u
+from ext.owner import Owner
+from ext.test import Test
+from ext.misc import Misc
 
 bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS, aka >>#0001.", owner_ids=u.owners)
 

@@ -1,5 +1,5 @@
 import multiprocessing
 
-for bot in ('bot-cas', 'bot-tommy'):
+for bot in ('casbot/bot.py', 'tommy/bot.py'):
     p = multiprocessing.Process(target=lambda: __import__(bot))
     p.start()
