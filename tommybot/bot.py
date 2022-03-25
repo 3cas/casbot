@@ -4,7 +4,7 @@ import os
 import logging
 import random
 
-TOKEN = os.getenv("TOMMYBOT_TOKEN")
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901876081422416/TOMMY.PNG",
                "https://cdn.discordapp.com/attachments/947379907959328769/950612810474324058/20220307_184343.jpg",

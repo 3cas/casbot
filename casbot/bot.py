@@ -29,7 +29,7 @@ async def on_message(message):
     if message.content.startswith('c!hello'):
         await message.channel.send('Hello!')
 
-TOKEN = os.getenv("CASBOT_TOKEN")
+TOKEN = os.getenv("TOKEN")
 
 #if os.getlogin() == "casga":
 #    with open("C:\\Users\\casga\\Desktop\\bot-token.txt", "r") as f:
