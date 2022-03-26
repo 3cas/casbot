@@ -4,6 +4,11 @@ import os
 import logging
 import random
 
+try:
+    import z_private
+except:
+    None
+
 TOKEN = os.getenv("TOMMYBOT_TOKEN")
 
 tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901876081422416/TOMMY.PNG",

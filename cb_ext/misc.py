@@ -5,6 +5,11 @@ import os
 
 import cb_ext.util as u
 
+try:
+    import z_private
+except:
+    None
+
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -31,10 +36,12 @@ class Misc(commands.Cog):
         interaction: Interaction, 
         start: str = SlashOption(name="start", description="Text to start with", required=True)
     ):
+        print("DEBUG"+self.deepai_key)
+
         text = requests.post(
             "https://api.deepai.org/api/text-generator",
-            data={'text': start,},
+            data={'text': start},
             headers={'api-key': self.deepai_key}
-        )
+        ).json()["output"]
 
         await interaction.response.send_message(text)
