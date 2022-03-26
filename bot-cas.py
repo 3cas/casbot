@@ -31,9 +31,9 @@ async def on_message(message):
 
 TOKEN = os.getenv("CASBOT_TOKEN")
 
-#if os.getlogin() == "casga":
-#    with open("C:\\Users\\casga\\Desktop\\bot-token.txt", "r") as f:
-#        TOKEN = f.read()
+if os.getlogin() == "casga":
+    with open("C:\\Users\\casga\\Desktop\\bot-token.txt", "r") as f:
+        TOKEN = f.read()
 
 while True:
     bot.run(TOKEN)

@@ -1,12 +1,14 @@
 from nextcord import *
 from nextcord.ext import commands
 import requests
+import os
 
 import cb_ext.util as u
 
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.deepai_key = os.getenv("DEEPAI_APIKEY")
 
     @slash_command(description="I LOVE LEAN!!!!", guild_ids=u.mains)
     async def lean(self, interaction: Interaction):
@@ -32,7 +34,7 @@ class Misc(commands.Cog):
         text = requests.post(
             "https://api.deepai.org/api/text-generator",
             data={'text': start,},
-            headers={'api-key': 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K'}
+            headers={'api-key': self.deepai_key}
         )
 
         await interaction.response.send_message(text)
