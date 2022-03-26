@@ -45,8 +45,8 @@ async def soggycat(ctx):
 
 @bot.command()
 async def poll(ctx):
-    await ctx.message.add_reaction("<:tommythumbsup:946649096645664768>")
-    await ctx.message.add_reaction("<:tommythumbsdown:947042965484896287>")
+    await ctx.message.add_reaction("<:tommythumbsup:957026236272615454>")
+    await ctx.message.add_reaction("<:tommythumbsdown:957027875977035797>")
 
 @bot.command()
 async def activity(ctx, *args):
