@@ -22,3 +22,17 @@ class Misc(commands.Cog):
     async def neko(self, interaction: Interaction):
         neko_img = requests.get("https://nekos.best/api/v1/nekos").json()["url"]
         await interaction.response.send_message(neko_img)
+
+    @slash_command(description="Generates text continuations using AI", guild_ids=u.mains)
+    async def textgen(
+        self, 
+        interaction: Interaction, 
+        start: str = SlashOption(name="start", description="Text to start with", required=True)
+    ):
+        text = requests.post(
+            "https://api.deepai.org/api/text-generator",
+            data={'text': start,},
+            headers={'api-key': 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K'}
+        )
+
+        await interaction.response.send_message(text)
