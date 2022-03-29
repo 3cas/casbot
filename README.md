@@ -1,7 +1,7 @@
 # discord-bots
 One repo to run multiple Discord bots with a single free Heroku dyno.
 
-CAS-14/casbot and CAS-14/tommybot development is continued here.
+Repositories **CAS-14/casbot** and **CAS-14/tommybot** are continued here.
 
 Bots that are in use here:
 * **CASbot** - `bot-cas.py` & `cb_ext/` - General purpose Discord bot made by CAS for testing stuff
@@ -14,3 +14,5 @@ Environment variables used:
 * `TOMMYBOT_TOKEN` - Mecha Tommy's Discord token
 * `DEEPAI_APIKEY` - DeepAI API key used for a feature of CASbot
 * `DEBUG_WEBHOOK` - Debug log webhook URL used by all bots
+
+This is not perfectly practical for running lots of bots, because every time a change is made, all bots must be restarted. But it works for me for the time being, and  that's what counts.
