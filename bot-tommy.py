@@ -1,6 +1,6 @@
 from nextcord import *
 from nextcord.ext import commands
-import os
+from os import getenv
 import logging
 import random
 import requests
@@ -12,7 +12,10 @@ except:
 
 prefix = "t?"
 
-TOKEN = os.getenv("TOMMYBOT_TOKEN")
+TOKEN = getenv("TOMMYBOT_TOKEN")
+
+WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
+debug = SyncWebhook.from_url(WEBHOOK_URL)
 
 tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901876081422416/TOMMY.PNG",
                "https://cdn.discordapp.com/attachments/947379907959328769/950612810474324058/20220307_184343.jpg",
@@ -27,7 +30,7 @@ tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901
                "https://cdn.discordapp.com/attachments/947379907959328769/950612840505573406/FMxrD_wXsAMAqF0.jpeg",
                "https://cdn.discordapp.com/attachments/947379907959328769/950612840862076948/FMxrDffXsAUU4aS.jpeg"]
 
-bot = commands.Bot(command_prefix=prefix, description="Tommybot is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291})
+bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291})
 
 logging.basicConfig(level=logging.INFO)
 
@@ -36,6 +39,7 @@ bot.remove_command("help")
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
+    debug.send("**Mecha Tommy:** Bot has started successfully")
 
 @bot.command()
 async def help(ctx):

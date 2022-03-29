@@ -1,7 +1,7 @@
 from nextcord import *
 from nextcord.ext import commands
 import logging
-import os
+from os import getenv
 import time
 
 import cb_ext.util as u
@@ -17,9 +17,13 @@ bot.add_cog(Owner(bot))
 bot.add_cog(Test(bot))
 bot.add_cog(Misc(bot))
 
+WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
+debug = Webhook.from_url(WEBHOOK_URL)
+
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
+    await debug.send("**CASbot:** Bot has started successfully")
 
 @bot.event
 async def on_message(message):
@@ -34,7 +38,7 @@ try:
 except:
     None
 
-TOKEN = os.getenv("CASBOT_TOKEN")
+TOKEN = getenv("CASBOT_TOKEN")
 
 while True:
     bot.run(TOKEN)
