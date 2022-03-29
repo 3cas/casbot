@@ -20,12 +20,12 @@ tommybot.start()
 
 while True:
     if not casbot.is_alive():
-        debug.send("**CASbot**: Bot process is dead - restarting!")
+        debug.send("**CASbot:** Bot process is dead - restarting!")
         casbot = Process(target=lambda: __import__("bot-cas"))
         casbot.start()
 
     if not tommybot.is_alive():
-        debug.send("**Mecha Tommy**: Bot process is dead - restarting!")
+        debug.send("**Mecha Tommy:** Bot process is dead - restarting!")
         tommybot = Process(target=lambda: __import__("bot-tommy"))
         tommybot.start()
     
