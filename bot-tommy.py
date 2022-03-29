@@ -53,13 +53,7 @@ async def help(ctx):
 
 @bot.command()
 async def mogu(ctx):
-    await ctx.send("bruh moment loading")
-
-    nekos = []
-    for i in range(5):
-        neko_img = requests.get("https://nekos.best/api/v1/nekos").json()["url"]
-        await ctx.author.send(neko_img)
-    await ctx.author.send("you've been tro")
+    await ctx.send("<:tommyfuckyou:957258224493551626>")
 
 @bot.command()
 async def tommy(ctx):
