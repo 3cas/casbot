@@ -116,8 +116,11 @@ async def activity(ctx, *args):
 @bot.command()
 async def say(ctx, args):
     if await bot.is_owner(ctx.author) or await commands.has_role(957055780392153108):
-        ctx.message.delete()
-        ctx.send(args)
+        try:
+            await ctx.message.delete()
+        except:
+            None
+        await ctx.send(args)
     else:
         await ctx.send("lol no")
 
