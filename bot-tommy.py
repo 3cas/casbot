@@ -46,7 +46,8 @@ async def help(ctx):
         `{prefix}soggycat` - Sends a set image of soggy cat
         `{prefix}dog` - Dog
         `{prefix}poll` - Automatically reacts with <:tommythumbsup:957026236272615454> and <:tommythumbsdown:957027875977035797> for poll purposes
-        `{prefix}activity` - Changes the bot prescence activity (Botmasters Only)
+        `{prefix}activity` - Changes the bot prescence activity (Mods/Botmasters Only)
+        `{prefix}say <text>` - Says something as tommy (Mods/Botmasters Only)
         `{prefix}test` - Sends \"goblin\""""
     help_embed = Embed(title="Mecha Tommy Commands List", description=help_desc)
     await ctx.send(embed=help_embed)
@@ -78,7 +79,7 @@ async def poll(ctx):
 
 @bot.command()
 async def activity(ctx, *args):
-    if await bot.is_owner(ctx.author):
+    if await bot.is_owner(ctx.author) or await commands.has_role(957055780392153108):
     
         args = list(args)
         try:
@@ -105,6 +106,14 @@ async def activity(ctx, *args):
             else:
                 await ctx.send(embed=Embed(title="Error",description=f"Not enough arguments\n\nProper command format: `t!activity <status type> <status>`\nStatus type: `playing`, `streaming`, `listening`, `watching`", color=0xff0000))
 
+    else:
+        await ctx.send("lol no")
+
+@bot.command()
+async def say(ctx, args):
+    if await bot.is_owner(ctx.author) or await commands.has_role(957055780392153108):
+        ctx.message.delete()
+        ctx.send(args)
     else:
         await ctx.send("lol no")
 

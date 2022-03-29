@@ -55,7 +55,7 @@ class Owner(commands.Cog):
         else:
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
-    @owner.subcommand(description="Shuts down the bot. OWNER ONLY")
+    @owner.subcommand(description="Shuts down or restarts the bot. OWNER ONLY")
     async def shutdown(self, interaction: Interaction):
         if self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: Shutting down...")
