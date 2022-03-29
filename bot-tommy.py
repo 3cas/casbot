@@ -133,5 +133,7 @@ async def dog(ctx):
 async def test(ctx):
     await ctx.send("goblin")
     
-# add new commands before this line
-bot.run(TOKEN)
+try:
+    bot.run(TOKEN)
+except Exception as e:
+    debug.send("**Mecha Tommy:** MAIN ERROR: "+str(e))
