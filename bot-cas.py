@@ -24,6 +24,7 @@ debug = SyncWebhook.from_url(WEBHOOK_URL)
 async def on_ready():
     print(f'We have logged in as {bot.user}')
     debug.send("**CASbot:** Bot has started successfully")
+    crash bot
 
 @bot.event
 async def on_message(message):
