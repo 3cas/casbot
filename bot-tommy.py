@@ -3,11 +3,14 @@ from nextcord.ext import commands
 import os
 import logging
 import random
+import requests
 
 try:
     import z_private
 except:
     None
+
+prefix = "t?"
 
 TOKEN = os.getenv("TOMMYBOT_TOKEN")
 
@@ -24,13 +27,39 @@ tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901
                "https://cdn.discordapp.com/attachments/947379907959328769/950612840505573406/FMxrD_wXsAMAqF0.jpeg",
                "https://cdn.discordapp.com/attachments/947379907959328769/950612840862076948/FMxrDffXsAUU4aS.jpeg"]
 
-bot = commands.Bot(command_prefix="t?", description="Tommybot is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291})
+bot = commands.Bot(command_prefix=prefix, description="Tommybot is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291})
 
 logging.basicConfig(level=logging.INFO)
+
+bot.remove_command("help")
 
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def help(ctx):
+    help_desc = f"""`{prefix}tommy` - Sends a random tommy image
+        `{prefix}ogtommy` - Sends the original tommy image
+        `{prefix}tommymusic` - Sends a video of tommy with music
+        `{prefix}jinx` - Sends a set image of jinx
+        `{prefix}soggycat` - Sends a set image of soggy cat
+        `{prefix}dog` - Dog
+        `{prefix}poll` - Automatically reacts with <:tommythumbsup:957026236272615454> and <:tommythumbsdown:957027875977035797> for poll purposes
+        `{prefix}activity` - Changes the bot prescence activity (Botmasters Only)
+        `{prefix}test` - Sends \"goblin\""""
+    help_embed = Embed(title="Mecha Tommy Commands List", description=help_desc)
+    await ctx.send(embed=help_embed)
+
+@bot.command()
+async def mogu(ctx):
+    await ctx.send("bruh moment loading")
+
+    nekos = []
+    for i in range(5):
+        neko_img = requests.get("https://nekos.best/api/v1/nekos").json()["url"]
+        await ctx.author.send(neko_img)
+    await ctx.author.send("you've been tro")
 
 @bot.command()
 async def tommy(ctx):
