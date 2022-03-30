@@ -20,6 +20,8 @@ bot.add_cog(Misc(bot))
 WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
 debug = SyncWebhook.from_url(WEBHOOK_URL)
 
+debug.send("MANUAL DEBUG MESASGE")
+
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
