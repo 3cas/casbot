@@ -1,6 +1,6 @@
 from nextcord import *
 from nextcord.ext import commands
-from requests import get
+from requests import get, post
 from os import getenv
 import firebase_admin as fb
 
@@ -40,7 +40,7 @@ class Misc(commands.Cog):
     ):
         print("DEBUG"+self.deepai_key)
 
-        text = requests.post(
+        text = post(
             "https://api.deepai.org/api/text-generator",
             data={'text': start},
             headers={'api-key': self.deepai_key}
