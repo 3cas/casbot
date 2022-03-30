@@ -15,7 +15,7 @@ class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.deepai_key = getenv("DEEPAI_APIKEY")
-        self.firebase_key = getenv("FIREBASE_KEY")
+        #self.firebase_key = getenv("FIREBASE_KEY")
 
     @slash_command(description="I LOVE LEAN!!!!", guild_ids=u.mains)
     async def lean(self, interaction: Interaction):
