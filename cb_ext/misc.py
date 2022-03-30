@@ -3,6 +3,8 @@ from nextcord.ext import commands
 from requests import get, post
 from os import getenv
 import firebase_admin as fb
+from firebase_admin import db
+from json import loads
 
 import cb_ext.util as u
 
@@ -15,11 +17,19 @@ class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.deepai_key = getenv("DEEPAI_APIKEY")
-        self.firebase_key = getenv("FIREBASE_KEY")
+        
+        cred = fb.credentials.Certificate(loads(getenv("FIREBASE_KEY"), strict=False))
+        fb.initialize_app(cred, {
+            'databaseURL': 'https://casbot-db-default-rtdb.firebaseio.com'
+        })
 
     @slash_command(description="I LOVE LEAN!!!!", guild_ids=u.mains)
     async def lean(self, interaction: Interaction):
         await interaction.response.send_message("**I LOVE LEAN!!!!**")
+
+    @slash_command(description="Tests database", guild_ids=u.mains)
+    async def datatest(self, interaction: Interaction):
+        await interaction.response.send_message(db.reference("/test/").get())
 
     @slash_command(description="Gets a random Kanye quote", guild_ids=u.mains)
     async def kanyequote(self, interaction: Interaction):
