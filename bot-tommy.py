@@ -30,6 +30,13 @@ tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901
                "https://cdn.discordapp.com/attachments/947379907959328769/950612840505573406/FMxrD_wXsAMAqF0.jpeg",
                "https://cdn.discordapp.com/attachments/947379907959328769/950612840862076948/FMxrDffXsAUU4aS.jpeg"]
 
+jinx_media = ["https://cdn.discordapp.com/attachments/956700543470952509/959165286542618654/oqk4nuhecnm81.png",
+              "https://cdn.discordapp.com/attachments/956700543470952509/959165286823645214/gayxyciblhh81.png",
+              "https://cdn.discordapp.com/attachments/956700543470952509/959165287037550622/8why8ai573b81.png",
+              "https://cdn.discordapp.com/attachments/956700543470952509/959165287268220988/5f6ynu4fo2b81.png",
+              "https://cdn.discordapp.com/attachments/956700543470952509/959165287670898810/unknown.png",
+              "https://cdn.discordapp.com/attachments/935315804067594290/947901923078586480/jinx.png"]
+
 bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291})
 
 logging.basicConfig(level=logging.INFO)
@@ -46,7 +53,7 @@ async def help(ctx):
     help_desc = f"""`{prefix}tommy` - Sends a random tommy image
         `{prefix}ogtommy` - Sends the original tommy image
         `{prefix}tommymusic` - Sends a video of tommy with music
-        `{prefix}jinx` - Sends a set image of jinx
+        `{prefix}jinx` - Sends a random image of jinx
         `{prefix}soggycat` - Sends a set image of soggy cat
         `{prefix}dog` - Dog
         `{prefix}poll` - Automatically reacts with <:tommythumbsup:957026236272615454> and <:tommythumbsdown:957027875977035797> for poll purposes
@@ -70,7 +77,7 @@ async def ogtommy(ctx):
 
 @bot.command()
 async def jinx(ctx):
-    await ctx.send("https://cdn.discordapp.com/attachments/935315804067594290/947901923078586480/jinx.png")
+    await ctx.send(random.choice(jinx_media))
 
 @bot.command()
 async def soggycat(ctx):
