@@ -2,36 +2,33 @@ from nextcord import *
 from nextcord.ext import commands
 
 import cb_ext.util as u
+from cb_ext.util import db
 
 class REAL9000(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @slash_command(guild_ids=u.mains)  # Making the command and limiting the guilds
-    async def r9k(self, interaction: Interaction):
-        await interaction.response.send_message("Tested")
+    async def check(self, message, edited=False):
+        if message.channel.id == 960637529365831700:
+            ref = db.reference("/casbot/r9k/")
+            content = message.content.lower()
 
-    @r9k.subcommand(description="Test subcommand")  # Identifying The Sub-Command
-    async def subcommand_one(self, interaction: Interaction):  # Making The Sub Command Name And Passing Through Interaction
-        await interaction.response.send_message("This is subcommand 1!")  # Sending A Response
+            if ";;;" in content:
+                await message.delete()
+        
+            else:
+                filtered = ''.join(filter(set('abcdefghijklmnopqrstuvwxyz').__contains__, message.content.lower()))
+                if filtered.len() == 0 or filtered in ref.get("data"):
+                    await message.delete()
+                    # possibly add message or punishment here
+                else:
+                    new_data = ref.get("data") + filtered + ";;;"
+                    ref.set("data", new_data)
 
-    # Identifying The Sub-Command And Adding A Descripton
-    @r9k.subcommand()
-    async def subcommand_two(self, interaction: Interaction):  # Passing in interaction
-        await interaction.response.send_message("This is subcommand 2!")  # Responding with a message
+    @commands.Cog.listener(guild_ids=[929931487279718490])
+    async def on_message(self, message):
+        await self.check(self, message)
 
-    @r9k.subcommand(description="Test menu")
-    async def choose_a_number(
-        self,
-        interaction: Interaction,
-        number: str = SlashOption(name="settings", description="Configure Your Settings", choices={"1": "one", "2": "two","3": "three"})):
-            await interaction.response.send_message(f"You chose {number}")
-
-    """
-    @user_command()
-    async def hello(self, interaction: Interaction, member: Member):
-        await interaction.response.send_message(f"Hello! {member}")
-    @message_command()
-    async def say(self, interaction: Interaction, message: Message):
-        await interaction.response.send_message(message.content, ephemeral=True)
-    """
+    @commands.Cog.listener(guild_ids=[929931487279718490])
+    async def on_message_edited(self, message):
+        await self.check(self, message, True)

@@ -1,12 +1,9 @@
 from nextcord import *
 from nextcord.ext import commands
 from requests import get, post
-from os import getenv
-import firebase_admin as fb
-from firebase_admin import db
-from json import loads
 
 import cb_ext.util as u
+from cb_ext.util import db
 
 try:
     import z_private
@@ -16,12 +13,6 @@ except:
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.deepai_key = getenv("DEEPAI_APIKEY")
-        
-        cred = fb.credentials.Certificate(loads(getenv("FIREBASE_KEY"), strict=False))
-        fb.initialize_app(cred, {
-            'databaseURL': 'https://casbot-db-default-rtdb.firebaseio.com'
-        })
 
     @slash_command(description="I LOVE LEAN!!!!", guild_ids=u.mains)
     async def lean(self, interaction: Interaction):
@@ -48,12 +39,11 @@ class Misc(commands.Cog):
         interaction: Interaction, 
         start: str = SlashOption(name="start", description="Text to start with", required=True)
     ):
-        print("DEBUG"+self.deepai_key)
 
         text = post(
             "https://api.deepai.org/api/text-generator",
             data={'text': start},
-            headers={'api-key': self.deepai_key}
+            headers={'api-key': u.deepai_key}
         ).json()["output"]
 
         await interaction.response.send_message(text)

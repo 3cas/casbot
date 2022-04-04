@@ -2,9 +2,10 @@ from nextcord import *
 from nextcord.ext import commands
 import logging
 from os import getenv
-import time
 
 import cb_ext.util as u
+from cb_ext.util import debug_webhook as debug
+
 from cb_ext.owner import Owner
 from cb_ext.r9k import REAL9000
 from cb_ext.misc import Misc
@@ -16,9 +17,6 @@ logging.basicConfig(level=logging.INFO)
 bot.add_cog(Owner(bot))
 bot.add_cog(REAL9000(bot))
 bot.add_cog(Misc(bot))
-
-WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
-debug = SyncWebhook.from_url(WEBHOOK_URL)
 
 @bot.event
 async def on_ready():
