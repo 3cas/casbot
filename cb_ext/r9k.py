@@ -10,7 +10,7 @@ class REAL9000(commands.Cog):
 
     async def check(message, edited=False):
         if message.channel.id == 960637529365831700:
-            ref = db.reference("/casbot/r9k/")
+            ref = db.reference("/casbot/r9k/data")
             content = message.content.lower()
 
             if ";;;" in content:
@@ -18,12 +18,12 @@ class REAL9000(commands.Cog):
         
             else:
                 filtered = ''.join(filter(set('abcdefghijklmnopqrstuvwxyz').__contains__, message.content.lower()))
-                if filtered.len() == 0 or filtered in ref.get("data"):
+                if filtered.len() == 0 or filtered in ref.get():
                     await message.delete()
                     # possibly add message or punishment here
                 else:
-                    new_data = ref.get("data") + filtered + ";;;"
-                    ref.set("data", new_data)
+                    new_data = ref.get() + filtered + ";;;"
+                    ref.set(".", new_data)
 
     @commands.Cog.listener("on_message")
     async def check_sent(self, message):
@@ -36,12 +36,12 @@ class REAL9000(commands.Cog):
         
             else:
                 filtered = ''.join(filter(set('abcdefghijklmnopqrstuvwxyz').__contains__, message.content.lower()))
-                if len(filtered) == 0 or filtered in ref.get("data")[0]:
+                if len(filtered) == 0 or filtered in ref.get()[0]:
                     await message.delete()
                     # possibly add message or punishment here
                 else:
-                    new_data = ref.get("data")[0] + filtered + ";;;"
-                    ref.set("data", new_data)
+                    new_data = ref.get() + filtered + ";;;"
+                    ref.set(".", new_data)
 
     @commands.Cog.listener("on_message_edited")
     async def check_edited(self, message):
