@@ -6,7 +6,7 @@ import time
 
 import cb_ext.util as u
 from cb_ext.owner import Owner
-from cb_ext.test import Test
+from cb_ext.r9k import REAL9000
 from cb_ext.misc import Misc
 
 bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS, aka >>#0001.", owner_ids=u.owners)
