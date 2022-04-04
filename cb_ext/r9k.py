@@ -8,7 +8,7 @@ class REAL9000(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def check(self, message, edited=False):
+    async def check(message, edited=False):
         if message.channel.id == 960637529365831700:
             ref = db.reference("/casbot/r9k/")
             content = message.content.lower()
@@ -27,8 +27,8 @@ class REAL9000(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        await self.check(self, message)
+        await self.check(message)
 
     @commands.Cog.listener()
     async def on_message_edited(self, message):
-        await self.check(self, message, True)
+        await self.check(message, True)
