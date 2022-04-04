@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot create
 logging.basicConfig(level=logging.INFO)
 
 bot.add_cog(Owner(bot))
-bot.add_cog(REAL9000(bot))
+# bot.add_cog(REAL9000(bot))
 bot.add_cog(Misc(bot))
 
 @bot.event
