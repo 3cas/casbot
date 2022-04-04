@@ -25,10 +25,10 @@ class REAL9000(commands.Cog):
                     new_data = ref.get("data") + filtered + ";;;"
                     ref.set("data", new_data)
 
-    @commands.Cog.listener(guild_ids=[929931487279718490])
+    @commands.Cog.listener()
     async def on_message(self, message):
         await self.check(self, message)
 
-    @commands.Cog.listener(guild_ids=[929931487279718490])
+    @commands.Cog.listener()
     async def on_message_edited(self, message):
         await self.check(self, message, True)
