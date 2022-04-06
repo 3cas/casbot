@@ -14,7 +14,7 @@ async def check(message, edited=False):
     
         else:
             filtered = ''.join(filter(set('abcdefghijklmnopqrstuvwxyz').__contains__, message.content.lower()))
-            if len(filtered) == 0 or filtered in ref.get():
+            if len(filtered) == 0 or filtered+";;;" in ref.get():
                 await message.delete()
                 # possibly add message or punishment here
             else:
