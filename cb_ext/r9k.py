@@ -1,5 +1,6 @@
 from nextcord import *
 from nextcord.ext import commands
+from datetime import timedelta
 
 import cb_ext.util as u
 from cb_ext.util import db
@@ -16,10 +17,9 @@ async def check(message, edited=False):
             filtered = ''.join(filter(set('abcdefghijklmnopqrstuvwxyz').__contains__, message.content.lower()))
             if len(filtered) == 0 or filtered+";;;" in ref.get():
                 if filtered not in ["goblin"]:
-                    mention = message.author.mention
-                    channel = message.channel
+                    await message.author.timeout(timedelta(minutes=5), "Sent duplicate message in #REAL9000")
                     await message.delete()
-                    await channel.send("?mute "+mention+" 5m Posted duplicate message in #REAL9000")
+                    
             else:
                 new_data = ref.get() + filtered + ";;;"
                 print(new_data)
