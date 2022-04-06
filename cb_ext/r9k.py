@@ -24,7 +24,6 @@ async def check(message):
                     
             else:
                 new_data = ref.get() + filtered + ";;;"
-                print(new_data)
                 ref.set(new_data)
 
 class REAL9000(commands.Cog):
@@ -35,6 +34,6 @@ class REAL9000(commands.Cog):
     async def check_sent(self, message):
         await check(message)
 
-    @commands.Cog.listener("on_message_edited")
+    @commands.Cog.listener("on_message_edit")
     async def check_edited(self, message):
         await check(message)
