@@ -17,8 +17,10 @@ async def check(message, edited=False):
             filtered = ''.join(filter(set('abcdefghijklmnopqrstuvwxyz').__contains__, message.content.lower()))
             if len(filtered) == 0 or filtered+";;;" in ref.get():
                 if filtered not in ["goblin"]:
-                    await message.author.timeout(timedelta(minutes=5), "Sent duplicate message in #REAL9000")
+                    author = message.author
                     await message.delete()
+                    await author.timeout(timedelta(minutes=5), "Sent duplicate message in #REAL9000")
+                    
                     
             else:
                 new_data = ref.get() + filtered + ";;;"
