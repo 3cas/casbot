@@ -6,7 +6,7 @@ import cb_ext.util as u
 from cb_ext.util import db
 
 try:
-    import z_private
+    import z_private  # type: ignore
 except:
     None
 

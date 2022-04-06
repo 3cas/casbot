@@ -3,7 +3,7 @@ from firebase_admin import credentials, initialize_app, db
 from json import loads
 from nextcord import SyncWebhook
 try:
-    import z_private
+    import z_private  # type: ignore
 except:
     None
 

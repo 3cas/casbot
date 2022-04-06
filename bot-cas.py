@@ -32,7 +32,7 @@ async def on_message(message):
         await message.channel.send('Hello!')
 
 try:
-    import z_private
+    import z_private  # type: ignore
 except:
     None
 
