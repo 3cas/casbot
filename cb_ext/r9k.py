@@ -5,7 +5,7 @@ from datetime import timedelta
 import cb_ext.util as u
 from cb_ext.util import db
 
-async def check(message, edited=False):
+async def check(message):
     if message.channel.id == 960637529365831700:
         ref = db.reference("/casbot/r9k/data")
         content = message.content.lower()
@@ -37,4 +37,4 @@ class REAL9000(commands.Cog):
 
     @commands.Cog.listener("on_message_edited")
     async def check_edited(self, message):
-        await check(message, True)
+        await check(message)
