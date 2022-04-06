@@ -9,15 +9,17 @@ async def check(message, edited=False):
         ref = db.reference("/casbot/r9k/data")
         content = message.content.lower()
 
-        if ";;;" in content:
+        if ";;;" in content or "?mute" in content:
             await message.delete()
     
         else:
             filtered = ''.join(filter(set('abcdefghijklmnopqrstuvwxyz').__contains__, message.content.lower()))
             if len(filtered) == 0 or filtered+";;;" in ref.get():
                 if filtered not in ["goblin"]:
+                    mention = message.author.mention
+                    channel = message.channel
                     await message.delete()
-                # possibly add message or punishment here
+                    await channel.send("?mute "+mention+" 5m Posted duplicate message in #REAL9000")
             else:
                 new_data = ref.get() + filtered + ";;;"
                 print(new_data)
