@@ -4,11 +4,11 @@ import time
 
 import cb_ext.util as u
 
-class Owner(commands.Cog):
+class Developer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @slash_command(description="Checks whether you are owner or not", guild_ids=u.mains)
+    @slash_command(description="Checks whether you are a CASbot developer or not", guild_ids=u.mains)
     async def checkowner(self, interaction: Interaction):
         if self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: You are a CASbot owner!")
@@ -16,7 +16,7 @@ class Owner(commands.Cog):
         else:
             await interaction.response.send_message(":x: You are not a CASbot owner.")
 
-    @slash_command(description="Spams a message. ADMIN ONLY", guild_ids=u.mains)
+    @slash_command(description="Spams a message - Dev Only", guild_ids=u.mains)
     async def spam(
         self, 
         interaction: Interaction,
@@ -33,11 +33,11 @@ class Owner(commands.Cog):
         else:
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
-    @slash_command(description="CASbot Admin commands", guild_ids=u.owner_guilds)
+    @slash_command(description="CASbot Developer commands", guild_ids=u.owner_guilds)
     async def owner(self, interaction: Interaction):
         await interaction.response.send_message("Hi")
 
-    @owner.subcommand(description="Change the bot's prescence. OWNER ONLY")
+    @owner.subcommand(description="Change the bot's prescence - Dev Only")
     async def presence(
         self, 
         interaction: Interaction,
@@ -55,7 +55,7 @@ class Owner(commands.Cog):
         else:
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
-    @owner.subcommand(description="Shuts down or restarts the bot. OWNER ONLY")
+    @owner.subcommand(description="Shuts down or restarts the bot - Dev Only")
     async def shutdown(self, interaction: Interaction):
         if self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: Shutting down...")

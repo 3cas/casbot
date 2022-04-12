@@ -6,17 +6,20 @@ from os import getenv
 import cb_ext.util as u
 from cb_ext.util import debug_webhook as debug
 
-from cb_ext.owner import Owner
-from cb_ext.r9k import REAL9000
+from cb_ext.dev import Developer
+from cb_ext.personal import RealServer
 from cb_ext.misc import Misc
 
 bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS, aka >>#0001.", owner_ids=u.owners)
 
 logging.basicConfig(level=logging.INFO)
 
-bot.add_cog(Owner(bot))
-bot.add_cog(REAL9000(bot))
-bot.add_cog(Misc(bot))
+cogs = [Developer(bot), RealServer(bot), Misc(bot)]
+for cog in cogs:
+    try:
+        bot.add_cog(cog)
+    except Exception as e:
+        debug.send("**CASbot:** Error in cog "+str(cog)+": "+str(e))
 
 @bot.event
 async def on_ready():

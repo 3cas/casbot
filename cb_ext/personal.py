@@ -1,9 +1,13 @@
 from nextcord import *
 from nextcord.ext import commands
-from datetime import timedelta
+from time import sleep
 
 import cb_ext.util as u
 from cb_ext.util import db
+
+# format of server: info vc
+# REAL: "Members: X"
+count_guilds = {929931487279718490: 935686520743014471}
 
 async def check(message):
     if message.channel.id == 960637529365831700:
@@ -19,21 +23,35 @@ async def check(message):
                 if filtered not in ["goblin"]:
                     author = message.author
                     await message.delete()
-                    await author.timeout(timedelta(minutes=5), "Sent duplicate message in #REAL9000")
+                    # await author.timeout(timedelta(minutes=5), "Sent duplicate message in #REAL9000")
                     
                     
             else:
                 new_data = ref.get() + filtered + ";;;"
                 ref.set(new_data)
 
-class REAL9000(commands.Cog):
+class RealServer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener("on_message")
-    async def check_sent(self, message):
+    @commands.Cog.listener()
+    async def on_message(self, message):
         await check(message)
 
-    @commands.Cog.listener("on_message_edit")
-    async def check_edited(self, message):
+    @commands.Cog.listener()
+    async def on_message_edit(self, message):
         await check(message)
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        while True:
+            for guild_id in count_guilds:
+                try:
+                    guild = await self.bot.get_guild(guild_id)
+                    channel = await self.bot.get_channel(count_guilds[guild_id])
+                    await channel.edit(name = str(guild.member_count)+" members")
+                except:
+                    None
+            
+            sleep(10)
+
