@@ -8,7 +8,6 @@ from cb_ext.util import db
 
 # format of server: info vc
 # REAL: "Members: X"
-count_guilds = {929931487279718490: 935686520743014471}
 
 async def check(message):
     if message.channel.id == 960637529365831700:
@@ -34,6 +33,10 @@ async def check(message):
 class RealServer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.count_guilds = {929931487279718490: 935686520743014471}
+
+    def cog_unload(self):
+        self.refresh_member_count.cancel()
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -43,17 +46,16 @@ class RealServer(commands.Cog):
     async def on_message_edit(self, message):
         await check(message)
 
-    @tasks.loop(seconds = 10)
-    async def refreshMembers(self):
-        for guild_id in count_guilds:
-            try:
-                guild = await self.bot.get_guild(guild_id)
-                channel = await self.bot.get_channel(count_guilds[guild_id])
-                await channel.edit(name = str(guild.member_count)+" members")
-            except:
-                None
+    @tasks.loop(seconds = 10.0)
+    async def refresh_member_count(self):
+        for guild_id in self.count_guilds:
+            guild = self.bot.get_guild(929931487279718490)
+            channel = guild.get_channel(self.count_guilds[guild_id])
+            await channel.edit(name = str(len(guild.humans))+" members")
 
-    refreshMembers.start()
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.refresh_member_count.start()
 
 def setup(bot):
     bot.add_cog(RealServer(bot))

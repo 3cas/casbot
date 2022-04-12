@@ -10,7 +10,10 @@ from cb_ext.dev import Developer
 from cb_ext.personal import RealServer
 from cb_ext.misc import Misc
 
-bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS, aka >>#0001.", owner_ids=u.owners)
+intents = Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS, aka >>#0001.", owner_ids=u.owners, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
 
