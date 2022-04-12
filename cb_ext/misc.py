@@ -47,3 +47,6 @@ class Misc(commands.Cog):
         ).json()["output"]
 
         await interaction.response.send_message(text)
+
+def setup(bot):
+    bot.add_cog(Misc(bot))

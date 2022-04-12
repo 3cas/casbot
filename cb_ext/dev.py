@@ -63,3 +63,6 @@ class Developer(commands.Cog):
 
         else:
             await interaction.response.send_message(":x: You are not a CASbot owner.")
+
+def setup(bot):
+    bot.add_cog(Developer(bot))

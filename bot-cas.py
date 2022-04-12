@@ -14,12 +14,12 @@ bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot create
 
 logging.basicConfig(level=logging.INFO)
 
-cogs = [Developer(bot), RealServer(bot), Misc(bot)]
+cogs = ["dev", "misc", "personal"]
 for cog in cogs:
     try:
-        bot.add_cog(cog)
+        bot.load_extension("cb_ext."+cog)
     except Exception as e:
-        debug.send("**CASbot:** Error in cog "+str(cog)+": "+str(e))
+        debug.send("**CASbot:** Error in cog "+cog+": "+str(e))
 
 @bot.event
 async def on_ready():

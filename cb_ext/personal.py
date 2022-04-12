@@ -55,3 +55,5 @@ class RealServer(commands.Cog):
             
             sleep(10)
 
+def setup(bot):
+    bot.add_cog(RealServer(bot))

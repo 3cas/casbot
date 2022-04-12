@@ -36,3 +36,6 @@ class Test(commands.Cog):
     async def say(self, interaction: Interaction, message: Message):
         await interaction.response.send_message(message.content, ephemeral=True)
     """
+
+def setup(bot):
+    bot.add_cog(Test(bot))
