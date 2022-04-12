@@ -1,5 +1,6 @@
 from nextcord import *
 from nextcord.ext import commands
+from nextcord.ext import tasks
 from time import sleep
 
 import cb_ext.util as u
@@ -42,18 +43,17 @@ class RealServer(commands.Cog):
     async def on_message_edit(self, message):
         await check(message)
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        while True:
-            for guild_id in count_guilds:
-                try:
-                    guild = await self.bot.get_guild(guild_id)
-                    channel = await self.bot.get_channel(count_guilds[guild_id])
-                    await channel.edit(name = str(guild.member_count)+" members")
-                except:
-                    None
-            
-            sleep(10)
+    @tasks.loop(seconds = 10)
+    async def refreshMembers(self):
+        for guild_id in count_guilds:
+            try:
+                guild = await self.bot.get_guild(guild_id)
+                channel = await self.bot.get_channel(count_guilds[guild_id])
+                await channel.edit(name = str(guild.member_count)+" members")
+            except:
+                None
+
+    refreshMembers.start()
 
 def setup(bot):
     bot.add_cog(RealServer(bot))
