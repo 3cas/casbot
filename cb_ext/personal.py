@@ -5,8 +5,6 @@ from nextcord.ext import tasks
 import cb_ext.util as u
 from cb_ext.util import db
 
-
-
 async def check(message):
     if message.channel.id == 960637529365831700:
         ref = db.reference("/casbot/r9k/data")
@@ -32,10 +30,10 @@ class RealServer(commands.Cog):
         self.bot = bot
         # REAL: "Members: X"
         self.count_guilds = {929931487279718490: 935686520743014471}
-        self.refresh_member_count.start()
+        #self.refresh_member_count.start()
 
-    def cog_unload(self):
-        self.refresh_member_count.cancel()
+    #def cog_unload(self):
+        #self.refresh_member_count.cancel()
 
     @commands.Cog.listener("on_message")
     async def check_sent(self, message):
@@ -45,6 +43,7 @@ class RealServer(commands.Cog):
     async def check_edited(self, message):
         await check(message)
 
+'''
     @tasks.loop(seconds = 10.0)
     async def refresh_member_count(self):
         try:
@@ -54,6 +53,7 @@ class RealServer(commands.Cog):
                 await channel.edit(name = str(len(guild.humans))+" members")
         except:
             None
+'''
         
 def setup(bot):
     bot.add_cog(RealServer(bot))
