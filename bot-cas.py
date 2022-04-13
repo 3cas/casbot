@@ -17,7 +17,7 @@ bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot create
 
 logging.basicConfig(level=logging.INFO)
 
-cogs = ["dev", "misc", "personal"]
+cogs = ["dev", "misc", "personal", "mcount"]
 for cog in cogs:
     try:
         bot.load_extension("cb_ext."+cog)

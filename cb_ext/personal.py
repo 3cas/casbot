@@ -1,7 +1,6 @@
 from nextcord import *
 from nextcord.ext import commands
 from nextcord.ext import tasks
-from time import sleep
 
 import cb_ext.util as u
 from cb_ext.util import db
@@ -25,7 +24,6 @@ async def check(message):
                     await message.delete()
                     # await author.timeout(timedelta(minutes=5), "Sent duplicate message in #REAL9000")
                     
-                    
             else:
                 new_data = ref.get() + filtered + ";;;"
                 ref.set(new_data)
@@ -33,11 +31,11 @@ async def check(message):
 class RealServer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.count_guilds = {929931487279718490: 935686520743014471}
-        self.refresh_member_count.start()
+        #self.count_guilds = {929931487279718490: 935686520743014471}
+        #self.refresh_member_count.start()
 
-    def cog_unload(self):
-        self.refresh_member_count.cancel()
+    #def cog_unload(self):
+        #self.refresh_member_count.cancel()
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -47,6 +45,7 @@ class RealServer(commands.Cog):
     async def on_message_edit(self, message):
         await check(message)
 
+"""
     @tasks.loop(seconds = 10.0)
     async def refresh_member_count(self):
         try:
@@ -56,6 +55,7 @@ class RealServer(commands.Cog):
                 await channel.edit(name = str(len(guild.humans))+" members")
         except:
             None
+"""
         
 def setup(bot):
     bot.add_cog(RealServer(bot))
