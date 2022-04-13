@@ -33,7 +33,7 @@ class Misc(commands.Cog):
         neko_img = get("https://nekos.best/api/v1/nekos").json()["url"]
         await interaction.response.send_message(neko_img)
 
-    @slash_command(description="Generates text continuations using AI", guild_ids=u.mains)
+    @slash_command(description="Generates text continuations using AI - [DISABLED]", guild_ids=u.mains)
     async def textgen(
         self, 
         interaction: Interaction, 
@@ -47,6 +47,35 @@ class Misc(commands.Cog):
         ).json()["output"]
 
         await interaction.response.send_message(text)
+
+    @slash_command(description="Sets and retrives per-user notes", guild_ids=u.mains)
+    async def usernote(self):
+        None
+
+    @usernote.subcommand(name="get", description="Get someone's user note")
+    async def get_name(
+        self, 
+        interaction: Interaction,
+        user: User = SlashOption(
+            name="user", description="User to retrieve note of", required=False),
+    ):
+        if not user:
+            user = interaction.user
+
+        ref = db.reference("/casbot/usernotes/"+str(user.id))
+        interaction.response.send(f":paper: User note for **{user.name}**:\n> {ref.get()}")
+
+    @usernote.subcommand(name="set", description="Set your own user note (This will overwrite the old one)")
+    async def set_name(
+        self,
+        interaction: Interaction,
+        note: int = SlashOption(
+            name="action", description="Select what you want to do", required=True)
+    ):
+
+        ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
+        ref.set(note)
+        interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to {note}")
 
 def setup(bot):
     bot.add_cog(Misc(bot))
