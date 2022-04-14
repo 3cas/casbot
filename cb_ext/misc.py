@@ -62,8 +62,11 @@ class Misc(commands.Cog):
         if not user:
             user = interaction.user
 
-        ref = db.reference("/casbot/usernotes/"+str(user.id))
-        interaction.response.send(f":paper: User note for **{user.name}**:\n> {ref.get()}")
+        try:
+            ref = db.reference("/casbot/usernotes/"+str(user.id))
+            interaction.response.send(f":paper: User note for **{user.name}**:\n> {ref.get()}")
+        except Exception as e:
+            interaction.response.send(f":x: ERROR: "+str(e))
 
     @usernote.subcommand(name="set", description="Set your own user note (This will overwrite the old one)")
     async def set_name(
@@ -72,10 +75,12 @@ class Misc(commands.Cog):
         note: str = SlashOption(
             name="note", description="The new note you want to change to", required=True)
     ):
-
-        ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
-        ref.set(note)
-        interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
+        try:
+            ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
+            ref.set(note)
+            interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
+        except Exception as e:
+            interaction.response.send(f":x: ERROR: "+str(e))
 
 def setup(bot):
     bot.add_cog(Misc(bot))
