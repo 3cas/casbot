@@ -6,10 +6,6 @@ from os import getenv
 import cb_ext.util as u
 from cb_ext.util import debug_webhook as debug
 
-from cb_ext.dev import Developer
-from cb_ext.personal import RealServer
-from cb_ext.misc import Misc
-
 intents = Intents.default()
 intents.members = True
 
