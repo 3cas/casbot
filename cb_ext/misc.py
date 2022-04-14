@@ -64,9 +64,9 @@ class Misc(commands.Cog):
 
         try:
             ref = db.reference("/casbot/usernotes/"+str(user.id))
-            interaction.response.send(f":paper: User note for **{user.name}**:\n> {ref.get()}")
+            await interaction.response.send(f":paper: User note for **{user.name}**:\n> {ref.get()}")
         except Exception as e:
-            interaction.response.send(f":x: ERROR: "+str(e))
+            await interaction.response.send(":x: ERROR: "+str(e))
 
     @usernote.subcommand(name="set", description="Set your own user note (This will overwrite the old one)")
     async def set_name(
@@ -78,9 +78,9 @@ class Misc(commands.Cog):
         try:
             ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
             ref.set(note)
-            interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
+            await interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
         except Exception as e:
-            interaction.response.send(f":x: ERROR: "+str(e))
+            await interaction.response.send(":x: ERROR: "+str(e))
 
 def setup(bot):
     bot.add_cog(Misc(bot))
