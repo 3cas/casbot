@@ -69,13 +69,13 @@ class Misc(commands.Cog):
     async def set_name(
         self,
         interaction: Interaction,
-        note: int = SlashOption(
-            name="action", description="Select what you want to do", required=True)
+        note: str = SlashOption(
+            name="note", description="The new note you want to change to", required=True)
     ):
 
         ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
         ref.set(note)
-        interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to {note}")
+        interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
 
 def setup(bot):
     bot.add_cog(Misc(bot))
