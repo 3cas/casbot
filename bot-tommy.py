@@ -37,6 +37,10 @@ jinx_media = ["https://cdn.discordapp.com/attachments/956700543470952509/9591652
               "https://cdn.discordapp.com/attachments/956700543470952509/959165287670898810/unknown.png",
               "https://cdn.discordapp.com/attachments/935315804067594290/947901923078586480/jinx.png"]
 
+gilbur_media = ["https://cdn.discordapp.com/attachments/957060354582650961/966412939571626004/gilbur.png",
+                "https://cdn.discordapp.com/attachments/957060354582650961/966412939785551902/gilburgif.gif",
+                "https://cdn.discordapp.com/attachments/957060354582650961/966412940137877524/gilburgif2.gif"]
+
 bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291})
 
 logging.basicConfig(level=logging.INFO)
@@ -70,6 +74,10 @@ async def mogu(ctx):
 @bot.command()
 async def tommy(ctx):
     await ctx.send(random.choice(tommy_media))
+
+@bot.command()
+async def gilbur(ctx):
+    await ctx.send(random.choice(gilbur_media))
 
 @bot.command()
 async def ogtommy(ctx):
