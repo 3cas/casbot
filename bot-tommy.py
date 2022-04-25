@@ -159,11 +159,11 @@ async def test(ctx):
 count_guilds = {957025882399195156: 968177603880058910}
 
 @tasks.loop(seconds=10.0)
-async def refresh_member_count(self):
+async def refresh_member_count():
     try:
         for guild_id in count_guilds:
             guild = bot.get_guild(guild_id) # tommylore
-            channel = guild.get_channel(self.count_guilds[guild_id])
+            channel = guild.get_channel(count_guilds[guild_id])
             await channel.edit(name=str(len(guild.humans))+" members")
     except:
         None
