@@ -55,6 +55,7 @@ bot.remove_command("help")
 async def on_ready():
     print(f'We have logged in as {bot.user}')
     debug.send("**Mecha Tommy:** Bot has started successfully")
+    refresh_member_count.start()
 
 @bot.command()
 async def help(ctx):
@@ -160,8 +161,8 @@ count_guilds = {957025882399195156: 968177603880058910}
 @tasks.loop(seconds=10.0)
 async def refresh_member_count(self):
     try:
-        for guild_id in self.count_guilds:
-            guild = self.bot.get_guild(guild_id) # tommylore
+        for guild_id in count_guilds:
+            guild = bot.get_guild(guild_id) # tommylore
             channel = guild.get_channel(self.count_guilds[guild_id])
             await channel.edit(name=str(len(guild.humans))+" members")
     except:
