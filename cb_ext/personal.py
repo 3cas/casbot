@@ -47,7 +47,7 @@ class RealServer(commands.Cog):
     async def refresh_member_count(self):
         try:
             for guild_id in self.count_guilds:
-                guild = self.bot.get_guild(929931487279718490)
+                guild = self.bot.get_guild(guild_id)
                 channel = guild.get_channel(self.count_guilds[guild_id])
                 await channel.edit(name = str(len(guild.humans))+" members")
         except:

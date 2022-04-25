@@ -1,5 +1,6 @@
 from nextcord import *
 from nextcord.ext import commands
+from nextcord.ext import tasks
 from os import getenv
 import logging
 import random
@@ -16,6 +17,9 @@ TOKEN = getenv("TOMMYBOT_TOKEN")
 
 WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
 debug = SyncWebhook.from_url(WEBHOOK_URL)
+
+intents = Intents.default()
+intents.members = True
 
 tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901876081422416/TOMMY.PNG",
                "https://cdn.discordapp.com/attachments/947379907959328769/950612810474324058/20220307_184343.jpg",
@@ -41,7 +45,7 @@ gilbur_media = ["https://cdn.discordapp.com/attachments/957060354582650961/96641
                 "https://cdn.discordapp.com/attachments/957060354582650961/966412939785551902/gilburgif.gif",
                 "https://cdn.discordapp.com/attachments/957060354582650961/966412940137877524/gilburgif2.gif"]
 
-bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291})
+bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291}, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
 
@@ -150,6 +154,18 @@ async def dog(ctx):
 @bot.command()
 async def test(ctx):
     await ctx.send("goblin")
+
+count_guilds = {957025882399195156: 968177603880058910}
+
+@tasks.loop(seconds=10.0)
+async def refresh_member_count(self):
+    try:
+        for guild_id in self.count_guilds:
+            guild = self.bot.get_guild(guild_id) # tommylore
+            channel = guild.get_channel(self.count_guilds[guild_id])
+            await channel.edit(name=str(len(guild.humans))+" members")
+    except:
+        None
     
 try:
     bot.run(TOKEN)
