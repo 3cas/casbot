@@ -9,7 +9,7 @@ from cb_ext.util import debug_webhook as debug
 intents = Intents.default()
 intents.members = True
 
-bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS, aka >>#0001.", owner_ids=u.owners, intents=intents)
+bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS#0001", owner_ids=u.owners, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
 
