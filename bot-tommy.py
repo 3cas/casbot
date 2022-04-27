@@ -3,8 +3,7 @@ from nextcord.ext import commands
 from nextcord.ext import tasks
 from os import getenv
 import logging
-import random
-import requests
+from random import choice
 
 try:
     import z_private  # type: ignore
@@ -13,13 +12,8 @@ except:
 
 prefix = "t?"
 
-TOKEN = getenv("TOMMYBOT_TOKEN")
-
 WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
 debug = SyncWebhook.from_url(WEBHOOK_URL)
-
-intents = Intents.default()
-intents.members = True
 
 tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901876081422416/TOMMY.PNG",
                "https://cdn.discordapp.com/attachments/947379907959328769/950612810474324058/20220307_184343.jpg",
@@ -45,11 +39,13 @@ gilbur_media = ["https://cdn.discordapp.com/attachments/957060354582650961/96641
                 "https://cdn.discordapp.com/attachments/957060354582650961/966412939785551902/gilburgif.gif",
                 "https://cdn.discordapp.com/attachments/957060354582650961/966412940137877524/gilburgif2.gif"]
 
+intents = Intents.default()
+intents.members = True
+
 bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291}, intents=intents)
+bot.remove_command("help")
 
 logging.basicConfig(level=logging.INFO)
-
-bot.remove_command("help")
 
 @bot.event
 async def on_ready():
@@ -78,11 +74,11 @@ async def mogu(ctx):
 
 @bot.command()
 async def tommy(ctx):
-    await ctx.send(random.choice(tommy_media))
+    await ctx.send(choice(tommy_media))
 
 @bot.command()
 async def gilbur(ctx):
-    await ctx.send(random.choice(gilbur_media))
+    await ctx.send(choice(gilbur_media))
 
 @bot.command()
 async def ogtommy(ctx):
@@ -90,7 +86,7 @@ async def ogtommy(ctx):
 
 @bot.command()
 async def jinx(ctx):
-    await ctx.send(random.choice(jinx_media))
+    await ctx.send(choice(jinx_media))
 
 @bot.command()
 async def soggycat(ctx):
@@ -168,7 +164,5 @@ async def refresh_member_count():
     except:
         None
     
-try:
-    bot.run(TOKEN)
-except Exception as e:
-    debug.send("**Mecha Tommy:** MAIN ERROR: "+str(e))
+bot.run(getenv("TOMMYBOT_TOKEN"))
+
