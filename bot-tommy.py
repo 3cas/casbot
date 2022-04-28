@@ -61,7 +61,7 @@ async def help(ctx):
         `{prefix}jinx` - Sends a random image of jinx
         `{prefix}soggycat` - Sends a set image of soggy cat
         `{prefix}dog` - Sends dog
-        `{prefix}gilbur - Sends a random gilbur image
+        `{prefix}gilbur` - Sends a random gilbur image
         `{prefix}poll` - Automatically reacts with <:tommythumbsup:957026236272615454> and <:tommythumbsdown:957027875977035797> for poll purposes
         `{prefix}activity` - Changes the bot prescence activity (Mods/Botmasters Only)
         `{prefix}say <text>` - Says something as tommy (Mods/Botmasters Only)"""
