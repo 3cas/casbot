@@ -1,5 +1,5 @@
 # discord-bots
-One repo to run multiple Discord bots with a single free Heroku dyno.
+System to run CASbot and Mecha Tommy Discord bots. Both are running from a single free Heroku dyno, so they are included in the same repository.
 
 Repositories **CAS-14/casbot** and **CAS-14/tommybot** are continued here.
 
