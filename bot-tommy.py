@@ -60,11 +60,11 @@ async def help(ctx):
         `{prefix}tommymusic` - Sends a video of tommy with music
         `{prefix}jinx` - Sends a random image of jinx
         `{prefix}soggycat` - Sends a set image of soggy cat
-        `{prefix}dog` - Dog
+        `{prefix}dog` - Sends dog
+        `{prefix}gilbur - Sends a random gilbur image
         `{prefix}poll` - Automatically reacts with <:tommythumbsup:957026236272615454> and <:tommythumbsdown:957027875977035797> for poll purposes
         `{prefix}activity` - Changes the bot prescence activity (Mods/Botmasters Only)
-        `{prefix}say <text>` - Says something as tommy (Mods/Botmasters Only)
-        `{prefix}test` - Sends \"goblin\""""
+        `{prefix}say <text>` - Says something as tommy (Mods/Botmasters Only)"""
     help_embed = Embed(title="Mecha Tommy Commands List", description=help_desc)
     await ctx.send(embed=help_embed)
 
@@ -147,10 +147,6 @@ async def tommymusic(ctx):
 @bot.command()
 async def dog(ctx):
     await ctx.send("https://media.discordapp.net/attachments/938385918480486421/950943566832750602/Untitled_design_6.gif")
-    
-@bot.command()
-async def test(ctx):
-    await ctx.send("goblin")
 
 count_guilds = {957025882399195156: 968177603880058910}
 
