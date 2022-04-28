@@ -160,7 +160,7 @@ async def refresh_member_count():
         for guild_id in count_guilds:
             guild = bot.get_guild(guild_id) # tommylore
             channel = guild.get_channel(count_guilds[guild_id])
-            await channel.edit(name=str(len(guild.humans))+" members")
+            await channel.edit(name="Members: "+str(len(guild.humans)))
     except:
         None
     
