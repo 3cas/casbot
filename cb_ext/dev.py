@@ -3,6 +3,7 @@ from nextcord.ext import commands
 import time
 
 import cb_ext.util as u
+from cb_ext.util import db
 
 class Developer(commands.Cog):
     def __init__(self, bot):
@@ -34,10 +35,10 @@ class Developer(commands.Cog):
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
     @slash_command(description="CASbot Developer commands", guild_ids=u.owner_guilds)
-    async def owner(self, interaction: Interaction):
+    async def dev(self, interaction: Interaction):
         await interaction.response.send_message("Hi")
 
-    @owner.subcommand(description="Change the bot's prescence - Dev Only")
+    @dev.subcommand(description="Change the bot's prescence - Dev Only")
     async def presence(
         self, 
         interaction: Interaction,
@@ -52,10 +53,15 @@ class Developer(commands.Cog):
             await self.bot.change_presence(status=status_types[status_type], activity=Activity(name=activity_name, type=activity_types[activity_type]))
             await interaction.response.send_message(f":white_check_mark: Activity successfully set to **{activity_type} {activity_name}** ({status_type}).")
 
+            ref = db.reference("/casbot/data/presence/")
+            ref.child("statusType").set(status_type)
+            ref.child("activityType").set(activity_type)
+            ref.child("activityValue").set(activity_name)
+
         else:
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
-    @owner.subcommand(description="Shuts down or restarts the bot - Dev Only")
+    @dev.subcommand(description="Shuts down or restarts the bot - Dev Only")
     async def shutdown(self, interaction: Interaction):
         if self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: Shutting down...")

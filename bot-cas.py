@@ -5,6 +5,7 @@ from os import getenv
 
 import cb_ext.util as u
 from cb_ext.util import debug_webhook as debug
+from cb_ext.util import db
 
 intents = Intents.default()
 intents.members = True
@@ -24,6 +25,18 @@ for cog in cogs:
 async def on_ready():
     print(f'We have logged in as {bot.user}')
     debug.send("**CASbot:** Bot has started successfully")
+
+    status_types = {"online": Status.online, "dnd": Status.dnd, "idle": Status.idle, "invisible": Status.invisible}
+    activity_types = {"playing": ActivityType.playing, "streaming": ActivityType.streaming, "listening to": ActivityType.listening, "watching": ActivityType.watching, "competing in": ActivityType.competing}
+
+    ref = db.reference("/casbot/data/presence/")
+    status_type = ref.child("statusType").get()
+    activity_type = ref.child("activityType").get()
+    activity_name = ref.child("activityValue").get()
+
+    await bot.change_presence(status=status_types[status_type], activity=Activity(name=activity_name, type=activity_types[activity_type]))
+
+    
 
 @bot.event
 async def on_message(message):
