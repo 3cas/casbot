@@ -1,5 +1,6 @@
 from nextcord import *
 from nextcord.ext import commands
+from nextcord.utils import find
 from requests import get, post
 
 import utility as u
@@ -10,9 +11,17 @@ try:
 except:
     None
 
-class Test(commands.Cog):
+class Core(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @client.event
+    async def on_guild_join(guild):
+        general = find(lambda x: x.name == "general",  guild.text_channels)
+        if general and general.permissions_for(guild.me).send_messages:
+            await general.send(f"Hello {guild.name}!\n\nThank you for adding Halcyon. The bot is currently still in development, and no moderation features are actually available. If you have any questions or suggestions, please contact me at CAS#0001.\n\nThanks,\nCAS-14")
+
+        
 
     @slash_command(description="I LOVE LEAN!!!!", guild_ids=u.mains)
     async def lean(self, interaction: Interaction):
@@ -31,4 +40,4 @@ class Test(commands.Cog):
 
     
 def setup(bot):
-    bot.add_cog(Test(bot))
+    bot.add_cog(Core(bot))
