@@ -10,26 +10,26 @@ from utility import db
 intents = Intents.default()
 intents.members = True
 
-bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS#0001", owner_ids=u.owners, intents=intents)
+bot = commands.Bot(command_prefix="ha!", description="Halcyon is a soon-to-be-public moderation bot, designed to be a fully free alternative to common Discord moderation bots. It is currently in development, and a work in progress. Developed with <3 by CAS#0001.", owner_ids=u.owners, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
 
-cogs = ["dev", "misc", "personal"]
+cogs = ["test"]
 for cog in cogs:
     try:
-        bot.load_extension("casbot-"+cog)
+        bot.load_extension("halcyon-"+cog)
     except Exception as e:
-        debug.send("**CASbot:** Error in cog `"+cog+"`: "+str(e))
+        debug.send("**Halcyon:** Error in cog `"+cog+"`: "+str(e))
 
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
-    debug.send("**CASbot:** Bot has started successfully")
+    debug.send("**Halcyon:** Bot has started successfully")
 
     status_types = {"online": Status.online, "dnd": Status.dnd, "idle": Status.idle, "invisible": Status.invisible}
     activity_types = {"playing": ActivityType.playing, "streaming": ActivityType.streaming, "listening to": ActivityType.listening, "watching": ActivityType.watching, "competing in": ActivityType.competing}
 
-    ref = db.reference("/casbot/data/presence/")
+    ref = db.reference("/halcyon/data/presence/")
     status_type = ref.child("statusType").get()
     activity_type = ref.child("activityType").get()
     activity_name = ref.child("activityValue").get()
@@ -43,7 +43,7 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if message.content.startswith('c!hello'):
+    if message.content.startswith('ha!hello'):
         await message.channel.send('Hello!')
 
 try:
@@ -51,9 +51,9 @@ try:
 except:
     None
 
-TOKEN = getenv("CASBOT_TOKEN")
+TOKEN = getenv("HALCYON_TOKEN")
 
 try:
     bot.run(TOKEN)
 except Exception as e:
-    debug.send("**CASbot:** MAIN ERROR: "+str(e))
+    debug.send("**Halcyon:** MAIN ERROR: "+str(e))

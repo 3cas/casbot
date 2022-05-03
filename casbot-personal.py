@@ -2,8 +2,8 @@ from nextcord import *
 from nextcord.ext import commands
 from nextcord.ext import tasks
 
-import cb_ext.util as u
-from cb_ext.util import db
+import utility as u
+from utility import db
 
 async def check(message):
     if message.channel.id == 960637529365831700:

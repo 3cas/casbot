@@ -6,7 +6,7 @@ import random
 import requests
 
 try:
-    import z_private  # type: ignore
+    import INIT_ENV  # type: ignore
 except:
     None
 

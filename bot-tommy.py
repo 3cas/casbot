@@ -6,7 +6,7 @@ import logging
 from random import choice
 
 try:
-    import z_private  # type: ignore
+    import INIT_ENV  # type: ignore
 except:
     None
 

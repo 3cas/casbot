@@ -4,7 +4,7 @@ from nextcord import SyncWebhook
 from os import getenv
 
 try:
-    import z_private
+    import INIT_ENV
 except:
     None
 
@@ -13,10 +13,12 @@ debug = SyncWebhook.from_url(WEBHOOK_URL)
 
 casbot = Process(target=lambda: __import__("bot-cas"))
 tommybot = Process(target=lambda: __import__("bot-tommy"))
+halcyon = Process(target=lambda: __import__("bot-halcyon"))
 
 debug.send("**All:** Starting all bots fresh")
 casbot.start()
 tommybot.start()
+halcyon.start()
 
 while True:
     if not casbot.is_alive():
@@ -27,6 +29,11 @@ while True:
     if not tommybot.is_alive():
         debug.send("**Mecha Tommy:** Bot process is dead - restarting!")
         tommybot = Process(target=lambda: __import__("bot-tommy"))
+        tommybot.start()
+
+    if not halcyon.is_alive():
+        debug.send("**Halcyon:** Bot process is dead - restarting!")
+        tommybot = Process(target=lambda: __import__("bot-halcyon"))
         tommybot.start()
     
     sleep(10)

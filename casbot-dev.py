@@ -2,8 +2,8 @@ from nextcord import *
 from nextcord.ext import commands
 import time
 
-import cb_ext.util as u
-from cb_ext.util import db
+import utility as u
+from utility import db
 
 class Developer(commands.Cog):
     def __init__(self, bot):

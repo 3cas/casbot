@@ -2,11 +2,11 @@ from nextcord import *
 from nextcord.ext import commands
 from requests import get, post
 
-import cb_ext.util as u
-from cb_ext.util import db
+import utility as u
+from utility import db
 
 try:
-    import z_private  # type: ignore
+    import INIT_ENV  # type: ignore
 except:
     None
 
