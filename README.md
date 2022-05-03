@@ -1,4 +1,10 @@
 # discord-bots
+
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/contains-17-coffee-cups.svg)](https://forthebadge.com)
+
+
 System to run CASbot and Mecha Tommy Discord bots. Both are running from a single free Heroku dyno, so they are included in the same repository.
 
 Repositories **CAS-14/casbot** and **CAS-14/tommybot** are continued here.
