@@ -7,7 +7,7 @@
 
 System to run CASbot and Mecha Tommy Discord bots. Both are running from a single free Heroku dyno, so they are included in the same repository.
 
-Repositories **CAS-14/casbot** and **CAS-14/tommybot** are continued here.
+Repositories **[CAS-14/casbot](https://github.com/CAS-14/casbot)** and **[CAS-14/tommybot](https://github.com/CAS-14/tommybot)** are continued here.
 
 Bots that are in use here:
 * **CASbot** - `bot-cas.py` & `cb_ext/` - General purpose Discord bot made by CAS for testing stuff
