@@ -18,7 +18,7 @@ class Settings(commands.Cog):
     async def setting(self, interaction: Interaction):
         await interaction.response.send_message("**I LOVE LEAN!!!!**")
 
-    @set.subcommand(description="Change how permission should be handled with the bot, either or both option(s) can be used here")
+    @setting.subcommand(description="Change how permission should be handled with the bot, either or both option(s) can be used here")
     async def permissions(
         self, 
         interaction: Interaction,

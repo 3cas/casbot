@@ -56,8 +56,7 @@ class Misc(commands.Cog):
     async def get_name(
         self, 
         interaction: Interaction,
-        user: User = SlashOption(
-            name="user", description="User to retrieve note of", required=False),
+        user: User = SlashOption(name="user", description="User to retrieve note of", required=False),
     ):
         if not user:
             user = interaction.user
@@ -72,8 +71,7 @@ class Misc(commands.Cog):
     async def set_name(
         self,
         interaction: Interaction,
-        note: str = SlashOption(
-            name="note", description="The new note you want to change to", required=True)
+        note: str = SlashOption(name="note", description="The new note you want to change to", required=True)
     ):
         try:
             ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
