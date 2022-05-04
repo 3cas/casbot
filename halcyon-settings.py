@@ -36,10 +36,10 @@ class Settings(commands.Cog):
             else:
                 response += "No moderator role set."
 
-            interaction.send(response)
+            await interaction.send(response)
         
         else:
-            interaction.send(":x: Sorry, you must be server owner to change this setting.")
+            await interaction.send(":x: Sorry, you must be server owner to change this setting.")
 
 def setup(bot):
     bot.add_cog(Settings(bot))
