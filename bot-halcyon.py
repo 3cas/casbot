@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix="ha!", description="Halcyon is a soon-to-be-pu
 
 logging.basicConfig(level=logging.INFO)
 
-cogs = ["test", "core"]
+cogs = ["test", "core", "settings"]
 for cog in cogs:
     try:
         bot.load_extension("halcyon-"+cog)

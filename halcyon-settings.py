@@ -10,12 +10,12 @@ try:
 except:
     None
 
-class Test(commands.Cog):
+class Settings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @slash_command(description="Change server settings", guild_ids=u.mains)
-    async def set(self, interaction: Interaction):
+    async def setting(self, interaction: Interaction):
         await interaction.response.send_message("**I LOVE LEAN!!!!**")
 
     @set.subcommand(description="Change how permission should be handled with the bot, either or both option(s) can be used here")
@@ -40,9 +40,6 @@ class Test(commands.Cog):
         
         else:
             interaction.send(":x: Sorry, you must be server owner to change this setting.")
-                    
-
-
 
 def setup(bot):
-    bot.add_cog(Test(bot))
+    bot.add_cog(Settings(bot))

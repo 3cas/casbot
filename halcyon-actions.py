@@ -10,7 +10,7 @@ try:
 except:
     None
 
-class Test(commands.Cog):
+class Actions(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -32,4 +32,4 @@ class Test(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Test(bot))
+    bot.add_cog(Actions(bot))
