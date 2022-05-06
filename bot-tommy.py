@@ -167,14 +167,14 @@ async def refresh_member_count():
 @bot.command()
 async def ratio(ctx):
     try:
-        Lmsg = ctx.channel.fetch_message(ctx.message.reference.message_id)
+        Lmsg = await ctx.channel.fetch_message(ctx.message.reference.message_id)
     except:
         await ctx.send("you didn't reply to anyone lol")
     finally:
+        await ctx.message.delete()
+
         for emote in L_emotes:
             await Lmsg.add_reaction(emote)
         
-        await ctx.message.delete()
-
 bot.run(getenv("TOMMYBOT_TOKEN"))
 
