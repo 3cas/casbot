@@ -171,8 +171,6 @@ async def ratio(ctx):
     except:
         await ctx.send("you didn't reply to anyone lol")
     else:
-        await ctx.message.delete()
-
         for emote in L_emotes:
             await Lmsg.add_reaction(emote)
         
