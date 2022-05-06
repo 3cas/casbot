@@ -170,7 +170,7 @@ async def ratio(ctx):
         Lmsg = await ctx.channel.fetch_message(ctx.message.reference.message_id)
     except:
         await ctx.send("you didn't reply to anyone lol")
-    finally:
+    else:
         await ctx.message.delete()
 
         for emote in L_emotes:
