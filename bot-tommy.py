@@ -39,6 +39,10 @@ gilbur_media = ["https://cdn.discordapp.com/attachments/957060354582650961/96641
                 "https://cdn.discordapp.com/attachments/957060354582650961/966412939785551902/gilburgif.gif",
                 "https://cdn.discordapp.com/attachments/957060354582650961/966412940137877524/gilburgif2.gif"]
 
+L_emotes = ["<:L0:970935282985742357>","<:L1:970935262316224523>","<:L2:970935250706395196>","<:L3:970935221581148170>","<:L4:970935212013912115>",
+            "<:L5:970935202304106536>","<:L6:970935194255253544>","<:L7:970935185233305600>","<:L8:970935175959691314>","<:L9:970935164588933130>",
+            "<:LA:970935154057039932>","<:LB:970935143315431434>","<:LC:970935133400092722>","<:LD:970935124155830292>"]
+
 intents = Intents.default()
 intents.members = True
 
@@ -160,5 +164,17 @@ async def refresh_member_count():
     except:
         None
     
+@bot.command()
+async def ratio(ctx):
+    try:
+        Lmsg = ctx.channel.fetch_message(ctx.message.reference.message_id)
+    except:
+        await ctx.send("you didn't reply to anyone lol")
+    finally:
+        for emote in L_emotes:
+            await Lmsg.add_reaction(emote)
+        
+        await ctx.message.delete()
+
 bot.run(getenv("TOMMYBOT_TOKEN"))
 
