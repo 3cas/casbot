@@ -18,7 +18,7 @@ halcyon = Process(target=lambda: __import__("bot-halcyon"))
 debug.send("**All:** Starting all bots fresh")
 casbot.start()
 tommybot.start()
-halcyon.start()
+# halcyon.start()
 
 while True:
     if not casbot.is_alive():
@@ -31,9 +31,9 @@ while True:
         tommybot = Process(target=lambda: __import__("bot-tommy"))
         tommybot.start()
 
-    if not halcyon.is_alive():
-        debug.send("**Halcyon:** Bot process is dead - restarting!")
-        tommybot = Process(target=lambda: __import__("bot-halcyon"))
-        tommybot.start()
+    #if not halcyon.is_alive():
+        #debug.send("**Halcyon:** Bot process is dead - restarting!")
+        #halcyon = Process(target=lambda: __import__("bot-halcyon"))
+        #halcyon.start()
     
     sleep(10)
