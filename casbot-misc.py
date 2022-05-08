@@ -86,12 +86,17 @@ class Misc(commands.Cog):
         self,
         interaction: Interaction,
         text: str = SlashOption(name="text", description="Text you want to colorize", required=True),
-        style: str = SlashOption(name="format", description="Normal, bold, or underline", required=False, choices=["normal", "bold", "underline"]),
-        color: str = SlashOption(name="color", description="Color of the text", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
-        background: str = SlashOption(name="background", description="Color of the background/highlight", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
+        style: str = SlashOption(name="format", description="Bold or underline (optional)", required=False, choices=["bold", "underline"]),
+        color: str = SlashOption(name="color", description="Color of the text (optional)", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
+        background: str = SlashOption(name="background", description="Color of the background/highlight (optional)", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
     ):
-        color_string = f"\u001b[{style if style else '0'}{';'+color if color else ''}{';'+background if background else ''}m{text}"
-        await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\n\nCopy this to use it elsewhere:\n```\n\\`\\`\\`ansi\n{color_string}\n\\`\\`\\`\n```")
+
+        style = {None: 0, "bold": 1, "underline": 4}[style]
+        color = {None: None, "gray": 30, "red": 31, "green": 32, "yellow": 33, "blue": 34, "pink": 35, "cyan": 36, "white": 37}[color]
+        background = {None: None, "firefly dark blue": 40, "orange": 41, "marble blue": 42, "grayish turquoise": 43, "gray": 44, "indigo": 45, "light gray": 46, "white": 47}[background]
+
+        color_string = f"\u001b[{style}{';'+str(color) if color else ''}{';'+str(background) if background else ''}m{text}"
+        await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\nCopy this to use it elsewhere:\n\n\`\`\`ansi\n{color_string}\n\`\`\`")
 
 def setup(bot):
     bot.add_cog(Misc(bot))
