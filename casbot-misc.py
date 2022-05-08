@@ -1,3 +1,4 @@
+import re
 from nextcord import *
 from nextcord.ext import commands
 from requests import get, post
@@ -79,6 +80,18 @@ class Misc(commands.Cog):
             await interaction.response.send(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
         except Exception as e:
             await interaction.response.send(":x: ERROR: "+str(e))
+
+    @slash_command(description="Sends colored code block text using ANSI codes", guild_ids=u.mains)
+    async def colortext(
+        self,
+        interaction: Interaction,
+        text: str = SlashOption(name="text", description="Text you want to colorize", required=True),
+        style: str = SlashOption(name="format", description="Normal, bold, or underline", required=False, choices=["normal", "bold", "underline"]),
+        color: str = SlashOption(name="color", description="Color of the text", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
+        background: str = SlashOption(name="background", description="Color of the background/highlight", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
+    ):
+        color_string = f"\u001b[{style if style else '0'}{';'+color if color else ''}{';'+background if background else ''}m{text}"
+        await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\n\nCopy this to use it elsewhere:\n```\n\\`\\`\\`ansi\n{color_string}\n\\`\\`\\`\n```")
 
 def setup(bot):
     bot.add_cog(Misc(bot))
