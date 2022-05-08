@@ -97,7 +97,7 @@ class Misc(commands.Cog):
         background = {None: None, "firefly dark blue": 40, "orange": 41, "marble blue": 42, "grayish turquoise": 43, "gray": 44, "indigo": 45, "light gray": 46, "white": 47}[background]
 
         color_string = f"\u001b[{style}{';'+str(color) if color else ''}{';'+str(background) if background else ''}m{text}"
-        await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\nCopy this to use it elsewhere:\n\n\`\`\`ansi\n{color_string}\n\`\`\`")
+        await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\nCopy everything below this to use it elsewhere:\n\n\`\`\`ansi\n{color_string}\n\`\`\`")
 
 def setup(bot):
     bot.add_cog(Misc(bot))
