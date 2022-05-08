@@ -90,7 +90,7 @@ class Misc(commands.Cog):
         color: str = SlashOption(name="color", description="Color of the text (optional)", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
         background: str = SlashOption(name="background", description="Color of the background/highlight (optional)", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
     ):
-        text = text.split("%n").join("\n")
+        text = "\n".join(text.split("%n"))
 
         style = {None: 0, "bold": 1, "underline": 4}[style]
         color = {None: None, "gray": 30, "red": 31, "green": 32, "yellow": 33, "blue": 34, "pink": 35, "cyan": 36, "white": 37}[color]
