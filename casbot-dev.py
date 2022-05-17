@@ -1,3 +1,5 @@
+from asyncore import poll
+import re
 from nextcord import *
 from nextcord.ext import commands
 import time
@@ -66,6 +68,27 @@ class Developer(commands.Cog):
         if self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: Shutting down...")
             await self.bot.close()
+
+        else:
+            await interaction.response.send_message(":x: You are not a CASbot owner.")
+
+    @dev.subcommand(description="Makes a poll - Dev Only")
+    async def poll(self, 
+            interaction: Interaction, 
+            poll_content: str = SlashOption(name="content", description="Poll content", required=True),
+            ping_role: Role = SlashOption(name="role", description="Role to ping", required=False)
+        ):
+        if self.bot.is_owner(interaction.user):
+            if not ping_role:
+                ping = ""
+            else:
+                ping = f"<@&{ping_role.id}> "
+
+            poll_message = await interaction.channel.send(ping+poll_content)
+            await poll_message.add_reaction("<:YES:976172480160997476>")
+            await poll_message.add_reaction("<:NO:976172479687045141>")
+
+            await interaction.response.send_message(":white_check_mark: Poll sent!", ephemeral=True)
 
         else:
             await interaction.response.send_message(":x: You are not a CASbot owner.")
