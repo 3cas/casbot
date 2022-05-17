@@ -3,7 +3,7 @@ from nextcord.ext import commands
 from nextcord.ext import tasks
 from os import getenv
 import logging
-from random import choice
+from random import randint
 
 try:
     import INIT_ENV  # type: ignore
@@ -14,30 +14,6 @@ prefix = "t?"
 
 WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
 debug = SyncWebhook.from_url(WEBHOOK_URL)
-
-tommy_media = ["https://cdn.discordapp.com/attachments/935315804067594290/947901876081422416/TOMMY.PNG",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612810474324058/20220307_184343.jpg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612810772152341/EM7Fl_mWsAIO76k.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612811162218516/1500x500.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612811703263252/FNQ5BW_XwAYgdsd.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612811963326484/FNM5APGXsAskDXw.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612838496469002/FLDYs6ZX0AIZlmy.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612838836228106/FLlaIRlXMAQa5Jv.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612840014823454/FLzK9HCXMAcKgIx.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612840232935474/FMoa4L1XwAEbG2w.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612840505573406/FMxrD_wXsAMAqF0.jpeg",
-               "https://cdn.discordapp.com/attachments/947379907959328769/950612840862076948/FMxrDffXsAUU4aS.jpeg"]
-
-jinx_media = ["https://cdn.discordapp.com/attachments/956700543470952509/959165286542618654/oqk4nuhecnm81.png",
-              "https://cdn.discordapp.com/attachments/956700543470952509/959165286823645214/gayxyciblhh81.png",
-              "https://cdn.discordapp.com/attachments/956700543470952509/959165287037550622/8why8ai573b81.png",
-              "https://cdn.discordapp.com/attachments/956700543470952509/959165287268220988/5f6ynu4fo2b81.png",
-              "https://cdn.discordapp.com/attachments/956700543470952509/959165287670898810/unknown.png",
-              "https://cdn.discordapp.com/attachments/935315804067594290/947901923078586480/jinx.png"]
-
-gilbur_media = ["https://cdn.discordapp.com/attachments/957060354582650961/966412939571626004/gilbur.png",
-                "https://cdn.discordapp.com/attachments/957060354582650961/966412939785551902/gilburgif.gif",
-                "https://cdn.discordapp.com/attachments/957060354582650961/966412940137877524/gilburgif2.gif"]
 
 L_emotes = ["<:L0:970935282985742357>","<:L1:970935262316224523>","<:L2:970935250706395196>","<:L3:970935221581148170>","<:L4:970935212013912115>",
             "<:L5:970935202304106536>","<:L6:970935194255253544>","<:L7:970935185233305600>","<:L8:970935175959691314>","<:L9:970935164588933130>",
@@ -50,6 +26,11 @@ bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom b
 bot.remove_command("help")
 
 logging.basicConfig(level=logging.INFO)
+
+media_url = "https://aei.pw/media/tommylore"
+
+def get_image(name, limit):
+    return f"{media_url}/{name}/{randint(0, limit)}.png"
 
 @bot.event
 async def on_ready():
@@ -68,7 +49,8 @@ async def help(ctx):
         `{prefix}gilbur` - Sends a random gilbur image
         `{prefix}poll` - Automatically reacts with <:tommythumbsup:957026236272615454> and <:tommythumbsdown:957027875977035797> for poll purposes
         `{prefix}activity` - Changes the bot prescence activity (Mods/Botmasters Only)
-        `{prefix}say <text>` - Says something as tommy (Mods/Botmasters Only)"""
+        `{prefix}say <text>` - Says something as tommy (Mods/Botmasters Only)
+        `{prefix}ratio` - [must be reply] Ratios someone"""
     help_embed = Embed(title="Mecha Tommy Commands List", description=help_desc)
     await ctx.send(embed=help_embed)
 
@@ -78,23 +60,31 @@ async def mogu(ctx):
 
 @bot.command()
 async def tommy(ctx):
-    await ctx.send(choice(tommy_media))
-
-@bot.command()
-async def gilbur(ctx):
-    await ctx.send(choice(gilbur_media))
+    await ctx.send(get_image("tommy", 11))
 
 @bot.command()
 async def ogtommy(ctx):
-    await ctx.send("https://cdn.discordapp.com/attachments/935315804067594290/947901876081422416/TOMMY.PNG")
+    await ctx.send(f"{media_url}/tommy/0.png")
+
+@bot.command()
+async def gilbur(ctx):
+    await ctx.send(get_image("gilbur", 2))
 
 @bot.command()
 async def jinx(ctx):
-    await ctx.send(choice(jinx_media))
+    await ctx.send(get_image("jinx", 5))
 
 @bot.command()
 async def soggycat(ctx):
-    await ctx.send("https://cdn.discordapp.com/attachments/935315804067594290/950201643578822686/soggycat.png")
+    await ctx.send(f"{media_url}/misc/soggycat.png")
+
+@bot.command()
+async def tommymusic(ctx):
+    await ctx.send(f"{media_url}/misc/tommymusic.mp4")
+
+@bot.command()
+async def dog(ctx):
+    await ctx.send(f"{media_url}/misc/dog.gif")
 
 @bot.command()
 async def poll(ctx):
@@ -143,14 +133,6 @@ async def say(ctx, *, text: str):
         await ctx.send(text)
     else:
         await ctx.send("lol no")
-
-@bot.command()
-async def tommymusic(ctx):
-    await ctx.send("https://cdn.discordapp.com/attachments/935315804067594290/950854749010399334/final_621b16be7b8326006f488eb3_141970.mp4")
-
-@bot.command()
-async def dog(ctx):
-    await ctx.send("https://media.discordapp.net/attachments/938385918480486421/950943566832750602/Untitled_design_6.gif")
 
 count_guilds = {957025882399195156: 968177603880058910}
 
