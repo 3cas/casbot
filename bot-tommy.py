@@ -159,5 +159,10 @@ async def ratio(ctx):
         for emote in L_emotes:
             await Lmsg.add_reaction(emote)
         
+@bot.event
+async def on_message(message: Message):
+    if message.author.id in [941224561897242625, 384123398214647818]:
+        await message.delete()
+
 bot.run(getenv("TOMMYBOT_TOKEN"))
 
