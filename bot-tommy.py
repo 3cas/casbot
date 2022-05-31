@@ -88,8 +88,11 @@ async def dog(ctx):
 
 @bot.command()
 async def poll(ctx):
-    await ctx.message.add_reaction("<:tommythumbsup:957026236272615454>")
-    await ctx.message.add_reaction("<:tommythumbsdown:957027875977035797>")
+    if ctx.message.author.id != 941224561897242625:
+        await ctx.message.add_reaction("<:tommythumbsup:957026236272615454>")
+        await ctx.message.add_reaction("<:tommythumbsdown:957027875977035797>")
+    else:
+        await ctx.send("Sorry clumsy, you can't use this.")
 
 @bot.command()
 async def activity(ctx, *args):
