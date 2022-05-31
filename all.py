@@ -1,39 +1,32 @@
 from multiprocessing import Process
 from time import sleep
-from nextcord import SyncWebhook
-from os import getenv
+from utility import debug_webhook as debug
 
-try:
-    import INIT_ENV
-except:
-    None
+class BotProcess:
+    def __init__(self, name: str, mainfile: str):
+        self.name = name    
+        self.mainfile = mainfile.replace(".py")
 
-WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
-debug = SyncWebhook.from_url(WEBHOOK_URL)
+    def start(self):
+        self.proc = Process(target=lambda: __import__(self.mainfile))
+        self.proc.start()
 
-casbot = Process(target=lambda: __import__("bot-cas"))
-tommybot = Process(target=lambda: __import__("bot-tommy"))
-halcyon = Process(target=lambda: __import__("bot-halcyon"))
+    def check(self):
+        if not self.proc.is_alive():
+            debug.send(f"**{self.name}:** Bot process is dead - restarting!")
+            self.restart()
+
+casbot = BotProcess("CASbot", "bot-cas.py")
+mechatommy = BotProcess("Mecha Tommy", "bot-tommy.py")
+halcyon = BotProcess("Halcyon", "bot-halcyon.py")
 
 debug.send("**All:** Starting all bots fresh")
+
 casbot.start()
-tommybot.start()
-# halcyon.start()
+mechatommy.start()
 
 while True:
-    if not casbot.is_alive():
-        debug.send("**CASbot:** Bot process is dead - restarting!")
-        casbot = Process(target=lambda: __import__("bot-cas"))
-        casbot.start()
+    casbot.check()
+    mechatommy.check()
 
-    if not tommybot.is_alive():
-        debug.send("**Mecha Tommy:** Bot process is dead - restarting!")
-        tommybot = Process(target=lambda: __import__("bot-tommy"))
-        tommybot.start()
-
-    #if not halcyon.is_alive():
-        #debug.send("**Halcyon:** Bot process is dead - restarting!")
-        #halcyon = Process(target=lambda: __import__("bot-halcyon"))
-        #halcyon.start()
-    
     sleep(10)

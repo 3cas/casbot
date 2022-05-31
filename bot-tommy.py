@@ -22,7 +22,7 @@ L_emotes = ["<:L0:970935282985742357>","<:L1:970935262316224523>","<:L2:97093525
 intents = Intents.default()
 intents.members = True
 
-bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Sas, made by >>#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291}, intents=intents)
+bot = commands.Bot(command_prefix=prefix, description="Mecha Tommy is a custom bot made for Tommylore and Plasma, made by CAS#0001.", owner_ids={956698441361260567,743340045628342324,901978388829450291}, intents=intents)
 bot.remove_command("help")
 
 logging.basicConfig(level=logging.INFO)
@@ -88,11 +88,8 @@ async def dog(ctx):
 
 @bot.command()
 async def poll(ctx):
-    if ctx.message.author.id != 941224561897242625:
-        await ctx.message.add_reaction("<:tommythumbsup:957026236272615454>")
-        await ctx.message.add_reaction("<:tommythumbsdown:957027875977035797>")
-    else:
-        await ctx.send("Sorry clumsy, you can't use this.")
+    await ctx.message.add_reaction("<:tommythumbsup:957026236272615454>")
+    await ctx.message.add_reaction("<:tommythumbsdown:957027875977035797>")
 
 @bot.command()
 async def activity(ctx, *args):
@@ -159,10 +156,6 @@ async def ratio(ctx):
         for emote in L_emotes:
             await Lmsg.add_reaction(emote)
         
-@bot.event
-async def on_message(message: Message):
-    if message.author.id in [941224561897242625, 384123398214647818]:
-        await message.delete()
 
 bot.run(getenv("TOMMYBOT_TOKEN"))
 
