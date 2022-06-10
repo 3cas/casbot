@@ -26,7 +26,7 @@ class Misc(commands.Cog):
         neko_img = get("https://nekos.best/api/v1/nekos").json()["url"]
         await interaction.response.send_message(neko_img)
 
-    @slash_command(description="Gets a random doge image", guild_ids=u.mains)
+    @slash_command(description="Gets a random doge (shibe) image", guild_ids=u.mains)
     async def doge(self, interaction: Interaction):
         doge_img = get("http://shibe.online/api/shibes").json()[0]
         await interaction.response.send_message(doge_img)
