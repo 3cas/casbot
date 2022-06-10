@@ -23,7 +23,8 @@ halcyon = BotProcess("Halcyon", "bot-halcyon.py")
 debug.send("**All:** Starting all bots fresh")
 
 casbot.start()
-mechatommy.start()
+# mechatommy.start()
+# halcyon.start()
 
 while True:
     casbot.check()
