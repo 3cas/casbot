@@ -11,6 +11,8 @@ try:
 except:
     None
 
+# this comment is for a commit that literally does nothing
+
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
