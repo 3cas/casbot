@@ -21,7 +21,7 @@ class Misc(commands.Cog):
         embed = Embed(color=Color.from_rgb(0, 0, 0), title="Kanye Quote", description=f"\"{quote}\"\n\t- Kanye West")
         await interaction.response.send_message(embed=embed)
 
-    @slash_command(description="Gets a random neko image", guild_ids=u.mains)
+    @slash_command(description="Gets a random anime catgirl", guild_ids=u.mains)
     async def neko(self, interaction: Interaction):
         neko_img = get("https://nekos.best/api/v1/nekos").json()["url"]
         await interaction.response.send_message(neko_img)
