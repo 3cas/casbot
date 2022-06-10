@@ -5,7 +5,7 @@ from utility import debug_webhook as debug
 class BotProcess:
     def __init__(self, name: str, mainfile: str):
         self.name = name    
-        self.mainfile = mainfile.replace(".py")
+        self.mainfile = mainfile.replace(".py", "")
 
     def start(self):
         self.proc = Process(target=lambda: __import__(self.mainfile))
