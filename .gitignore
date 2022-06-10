@@ -1,4 +1,3 @@
-INIT_ENV.py
-INIT_ENV.cpython-39.pyc
-/__pycache__
-zz_temp.py
+INIT_ENV*
+__pycache__
+zz_temp*
