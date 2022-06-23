@@ -3,6 +3,8 @@ from nextcord.ext import commands
 
 import utility as u
 
+# NOTE: This cog is not loaded
+
 class Test(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

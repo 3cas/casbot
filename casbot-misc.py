@@ -1,4 +1,3 @@
-import re
 from nextcord import *
 from nextcord.ext import commands
 from requests import get, post

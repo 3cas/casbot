@@ -9,8 +9,7 @@ System to run CASbot and Mecha Tommy Discord bots. Both are running from a singl
 Repositories **[CAS-14/casbot](https://github.com/CAS-14/casbot)** and **[CAS-14/tommybot](https://github.com/CAS-14/tommybot)** are continued here.
 
 Bots that are in use here:
-* **CASbot** - `bot-cas.py` & `cb_ext/` - General purpose Discord bot made by CAS for testing stuff
-* **Mecha Tommy** - `bot.tommy.py` - Mecha Tommy, created by CAS for Sas's server Tommylore
+* **CASbot** - `bot-cas.py` & `casbot-*.py` - General purpose Discord bot made by CAS for testing stuff
 
 How it works: In `all.py`, multiprocessing is used to run two bots at once. This file is the only one run from the Heroku `Procfile`. Debug logs are also sent through a Discord webhook to a private Discord server.
 

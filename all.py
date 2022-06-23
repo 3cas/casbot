@@ -16,18 +16,13 @@ class BotProcess:
             debug.send(f"**{self.name}:** Bot process is dead - restarting!")
             self.restart()
 
-casbot = BotProcess("CASbot", "bot-cas.py")
-mechatommy = BotProcess("Mecha Tommy", "bot-tommy.py")
-halcyon = BotProcess("Halcyon", "bot-halcyon.py")
+casbot = BotProcess("CASbot", "casbot.py")
 
 debug.send("**All:** Starting all bots fresh")
 
 casbot.start()
-# mechatommy.start()
-# halcyon.start()
 
 while True:
     casbot.check()
-    mechatommy.check()
 
     sleep(10)
