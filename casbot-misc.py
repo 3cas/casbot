@@ -10,9 +10,9 @@ try:
 except:
     None
 
-# this comment is for a commit that literally does nothing
+# Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
-class Misc(commands.Cog):
+class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -83,4 +83,4 @@ class Misc(commands.Cog):
         await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\nCopy everything below this to use it elsewhere:\n\n\`\`\`ansi\n{color_string}\n\`\`\`")
 
 def setup(bot):
-    bot.add_cog(Misc(bot))
+    bot.add_cog(Miscellaneous(bot))

@@ -3,6 +3,7 @@ from nextcord.ext import commands
 
 import utility as u
 
+# Test cog: For future reference and testing things with Nextcord
 # NOTE: This cog is not loaded
 
 class Test(commands.Cog):

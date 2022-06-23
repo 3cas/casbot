@@ -7,6 +7,8 @@ import time
 import utility as u
 from utility import db
 
+# Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
+
 class Developer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

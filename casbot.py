@@ -7,7 +7,7 @@ import utility as u
 from utility import debug_webhook as debug
 from utility import db
 
-intents = Intents.default()
+intents = Intents.all()
 intents.members = True
 
 bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS#0001", owner_ids=u.owners, intents=intents)

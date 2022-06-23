@@ -5,6 +5,8 @@ from nextcord.ext import tasks
 import utility as u
 from utility import db
 
+# Personal cog: For use in CAS's Discord servers, including moderation features and one-off functionality
+
 async def check(message):
     if message.channel.id == 960637529365831700:
         ref = db.reference("/casbot/r9k/data")
@@ -25,7 +27,7 @@ async def check(message):
                 new_data = ref.get() + filtered + ";;;"
                 ref.set(new_data)
 
-class RealServer(commands.Cog):
+class Personal(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         # REAL: "Members: X"
@@ -54,4 +56,4 @@ class RealServer(commands.Cog):
             None
         
 def setup(bot):
-    bot.add_cog(RealServer(bot))
+    bot.add_cog(Personal(bot))
