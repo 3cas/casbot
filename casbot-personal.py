@@ -93,6 +93,8 @@ class Personal(commands.Cog):
         await member.timeout(delta, reason)
         await interaction.send(f"Timed out **{member.name}** for **{days} days** and **{seconds} seconds**.")
 
+    
+
     @commands.Cog.listener("on_message")
     async def check_sent(self, message):
         await r9k_check(message)
