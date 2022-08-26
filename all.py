@@ -17,12 +17,15 @@ class BotProcess:
             self.restart()
 
 casbot = BotProcess("CASbot", "casbot.py")
+doge = BotProcess("DogeDenBot", "dogedenbot.py")
 
 debug.send("**All:** Starting all bots fresh")
 
 casbot.start()
+doge.start()
 
 while True:
     casbot.check()
+    doge.check()
 
     sleep(10)
