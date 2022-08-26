@@ -21,12 +21,12 @@ dogedenbot.start()
 while True:
     if not casbot.is_alive():
         debug.send("**CASbot:** Bot process is dead - restarting!")
-        casbot = Process(target=lambda: __import__("bot-cas"))
+        casbot = Process(target=lambda: __import__("casbot"))
         casbot.start()
 
     if not dogedenbot.is_alive():
         debug.send("**DogeDenBot:** Bot process is dead - restarting!")
-        dogedenbot = Process(target=lambda: __import__("bot-tommy"))
+        dogedenbot = Process(target=lambda: __import__("dogedenbot"))
         dogedenbot.start()
     
     sleep(10)
