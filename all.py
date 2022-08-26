@@ -1,31 +1,32 @@
 from multiprocessing import Process
 from time import sleep
-from utility import debug_webhook as debug
+from nextcord import SyncWebhook
+from os import getenv
 
-class BotProcess:
-    def __init__(self, name: str, mainfile: str):
-        self.name = name    
-        self.mainfile = mainfile.replace(".py", "")
+try:
+    import INIT_ENV
+except:
+    None
 
-    def start(self):
-        self.proc = Process(target=lambda: __import__(self.mainfile))
-        self.proc.start()
+WEBHOOK_URL = getenv("DEBUG_WEBHOOK")
+debug = SyncWebhook.from_url(WEBHOOK_URL)
 
-    def check(self):
-        if not self.proc.is_alive():
-            debug.send(f"**{self.name}:** Bot process is dead - restarting!")
-            self.restart()
-
-casbot = BotProcess("CASbot", "casbot.py")
-doge = BotProcess("DogeDenBot", "dogedenbot.py")
+casbot = Process(target=lambda: __import__("casbot"))
+dogedenbot = Process(target=lambda: __import__("dogedenbot"))
 
 debug.send("**All:** Starting all bots fresh")
-
 casbot.start()
-doge.start()
+dogedenbot.start()
 
 while True:
-    casbot.check()
-    doge.check()
+    if not casbot.is_alive():
+        debug.send("**CASbot:** Bot process is dead - restarting!")
+        casbot = Process(target=lambda: __import__("bot-cas"))
+        casbot.start()
 
+    if not dogedenbot.is_alive():
+        debug.send("**DogeDenBot:** Bot process is dead - restarting!")
+        dogedenbot = Process(target=lambda: __import__("bot-tommy"))
+        dogedenbot.start()
+    
     sleep(10)
