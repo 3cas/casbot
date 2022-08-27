@@ -4,10 +4,10 @@ import json
 import nextcord
 import dotenv
 
+dotenv.load_dotenv()
+
 print(f'FIREBASE_KEY = {os.getenv("FIREBASE_KEY")}')
 print(f'DOGEDENBOT_TOKEN = {os.getenv("DOGEDENBOT_TOKEN")}')
-
-dotenv.load_dotenv()
 
 mains = [929931487279718490, 926776827589054484, 814158378653712455, 1011058430007578727] # REAL, STORAGE-1, big, Doge Den
 moderated = [929931487279718490] # REAL
