@@ -1,3 +1,4 @@
-discord
+nextcord
 requests
 firebase_admin
+python-dotenv

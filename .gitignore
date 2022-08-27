@@ -1,4 +1,4 @@
-INIT_ENV*
 __pycache__
 zz_temp*
 *backup*
+.env

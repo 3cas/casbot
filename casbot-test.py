@@ -1,33 +1,32 @@
-from nextcord import *
-from nextcord.ext import commands
+import nextcord
 
-import utility as u
+import utility
 
 # Test cog: For future reference and testing things with Nextcord
 # NOTE: This cog is not loaded
 
-class Test(commands.Cog):
+class Test(nextcord.ext.commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @slash_command(guild_ids=u.mains)  # Making the command and limiting the guilds
-    async def test(self, interaction: Interaction):
+    @nextcord.slash_command(guild_ids=utility.mains)  # Making the command and limiting the guilds
+    async def test(self, interaction: nextcord.Interaction):
         await interaction.response.send_message("Tested")
 
     @test.subcommand(description="Test subcommand")  # Identifying The Sub-Command
-    async def subcommand_one(self, interaction: Interaction):  # Making The Sub Command Name And Passing Through Interaction
+    async def subcommand_one(self, interaction: nextcord.Interaction):  # Making The Sub Command Name And Passing Through Interaction
         await interaction.response.send_message("This is subcommand 1!")  # Sending A Response
 
     # Identifying The Sub-Command And Adding A Descripton
     @test.subcommand()
-    async def subcommand_two(self, interaction: Interaction):  # Passing in interaction
+    async def subcommand_two(self, interaction: nextcord.Interaction):  # Passing in interaction
         await interaction.response.send_message("This is subcommand 2!")  # Responding with a message
 
     @test.subcommand(description="Test menu")
     async def choose_a_number(
         self,
-        interaction: Interaction,
-        number: str = SlashOption(name="settings", description="Configure Your Settings", choices={"1": "one", "2": "two","3": "three"})):
+        interaction: nextcord.Interaction,
+        number: str = nextcord.SlashOption(name="settings", description="Configure Your Settings", choices={"1": "one", "2": "two","3": "three"})):
             await interaction.response.send_message(f"You chose {number}")
 
     """
