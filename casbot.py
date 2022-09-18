@@ -1,5 +1,5 @@
 import nextcord
-import nextcord.ext
+from nextcord.ext import commands
 import logging
 import os
 import dotenv
@@ -11,7 +11,7 @@ dotenv.load_dotenv()
 intents = nextcord.Intents.all()
 intents.members = True
 
-bot = nextcord.ext.commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS#0001", owner_ids=utility.owners, intents=intents)
+bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by CAS#0001", owner_ids=utility.owners, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
 

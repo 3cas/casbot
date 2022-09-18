@@ -1,5 +1,5 @@
 import nextcord
-import nextcord.ext
+from nextcord.ext import commands
 import requests
 import dotenv
 
@@ -9,7 +9,7 @@ dotenv.load_dotenv()
 
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
-class Miscellaneous(nextcord.ext.commands.Cog):
+class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

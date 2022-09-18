@@ -1,5 +1,5 @@
 import nextcord
-import nextcord.ext
+from nextcord.ext import commands
 import logging
 import os
 import requests
@@ -9,7 +9,7 @@ import utility
 intents = nextcord.Intents.all()
 intents.members = True
 
-bot = nextcord.ext.commands.Bot(command_prefix="dd!", description="DogeDenBot is a Discord bot created for Doge Den by CAS#0001", owner_ids=utility.owners, intents=intents)
+bot = commands.Bot(command_prefix="dd!", description="DogeDenBot is a Discord bot created for Doge Den by CAS#0001", owner_ids=utility.owners, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
 

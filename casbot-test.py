@@ -1,12 +1,12 @@
 import nextcord
-import nextcord.ext
+from nextcord.ext import commands
 
 import utility
 
 # Test cog: For future reference and testing things with Nextcord
 # NOTE: This cog is not loaded
 
-class Test(nextcord.ext.commands.Cog):
+class Test(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
