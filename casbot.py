@@ -1,4 +1,5 @@
 import nextcord
+import nextcord.ext
 import logging
 import os
 import dotenv
