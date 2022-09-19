@@ -65,9 +65,9 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         debug.send("**CASbot:** MAIN ERROR: "+str(e))
 
 if __name__ == "__main__":
+    from firebase_admin import credentials, initialize_app, db
     import dotenv
     import os
-    import firebase_admin
 
     dotenv.load_dotenv()
 
@@ -77,9 +77,9 @@ if __name__ == "__main__":
 
     debug_webhook = nextcord.SyncWebhook.from_url(WEBHOOK_URL)
 
-    cred = firebase_admin.credentials.Certificate(FIREBASE_KEY)
-    firebase_admin.initialize_app(cred, {
+    cred = credentials.Certificate(FIREBASE_KEY)
+    initialize_app(cred, {
         'databaseURL': 'https://casbot-db-default-rtdb.firebaseio.com'
     })
 
-    run(TOKEN, debug_webhook, firebase_admin.db)
+    run(TOKEN, debug_webhook, db)
