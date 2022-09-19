@@ -1,5 +1,5 @@
 import os
-import firebase_admin
+from firebase_admin import credentials, initialize_app, db
 import json
 import nextcord
 import dotenv
@@ -11,8 +11,8 @@ moderated = [929931487279718490] # REAL
 owner_guilds = [929931487279718490, 926776827589054484, 814158378653712455] # REAL, STORAGE-1, big
 owners = {743340045628342324, 982116742815944764} # CAS, novemdecillion, 
 
-cred = firebase_admin.credentials.Certificate(json.loads(os.getenv("FIREBASE_KEY"), strict=False))
-firebase_admin.initialize_app(cred, {
+cred = credentials.Certificate(json.loads(os.getenv("FIREBASE_KEY"), strict=False))
+initialize_app(cred, {
     'databaseURL': 'https://casbot-db-default-rtdb.firebaseio.com'
 })
 
