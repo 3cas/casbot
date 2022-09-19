@@ -21,7 +21,7 @@ class Miscellaneous(commands.Cog):
     @nextcord.slash_command(description="Gets a random anime catgirl", guild_ids=guilds)
     async def neko(self, interaction: nextcord.Interaction):
         print("\nDEBUG: Running /neko\n")
-        neko_img = requests.get("https://nekos.best/api/v1/nekos").json()["url"]
+        neko_img = requests.get("https://nekos.best/api/v2/neko").json()[0]["url"]
         await interaction.response.send_message(neko_img)
 
     @nextcord.slash_command(description="Gets a random doge (shibe) image", guild_ids=guilds)
