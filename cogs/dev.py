@@ -43,17 +43,19 @@ class Developer(commands.Cog):
         content: str = nextcord.SlashOption(name="content", description="Text to send", required=True)
     ):
         if self.bot.is_owner(interaction.user):
+            print(f"\nDEBUG: Spamming \"{content}\" {times} times with a delay of {delay} seconds\n")
             await interaction.response.send_message(":white_check_mark: Sending your message(s)!")
             for i in range(times):
                 await interaction.channel.send(content)
                 time.sleep(delay)
 
         else:
+            print(f"\nDEBUG: /spam denied user\n")
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
     @nextcord.slash_command(description="CASbot Developer commands", guild_ids=guilds)
     async def dev(self, interaction: nextcord.Interaction):
-        await interaction.response.send_message("Hi")
+        None
 
     @dev.subcommand(description="Change the bot's prescence - Dev Only")
     async def presence(
@@ -63,7 +65,9 @@ class Developer(commands.Cog):
         activity_type: str = nextcord.SlashOption(name="activitytype", description="Choose the activity type for the bot", required=True, choices=["playing", "streaming", "listening to", "watching", "competing in"]),
         activity_name: str = nextcord.SlashOption(name="activityname", description="Specify the custom activity name", required=True)
     ):
-        if self.bot.is_owner(interaction.user):  
+        if self.bot.is_owner(interaction.user):
+            print(f"\nDEBUG: Changing presence to {activity_type} {activity_name} ({status_type})\n")
+
             await self.bot.change_presence(status=self.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=self.activity_types[activity_type]))
             await interaction.response.send_message(f":white_check_mark: Activity successfully set to **{activity_type} {activity_name}** ({status_type}).")
 
@@ -73,15 +77,18 @@ class Developer(commands.Cog):
             ref.child("activityValue").set(activity_name)
 
         else:
+            print(f"\nDEBUG: /dev presence denied user\n")
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
     @dev.subcommand(description="Shuts down or restarts the bot - Dev Only")
     async def shutdown(self, interaction: nextcord.Interaction):
         if self.bot.is_owner(interaction.user):
+            print(f"\nDEBUG: RECEIVED SHUTDOWN COMMAND\n")
             await interaction.response.send_message(":white_check_mark: Shutting down...")
             await self.bot.close()
 
         else:
+            print(f"\nDEBUG: /dev shutdown command denied user\n")
             await interaction.response.send_message(":x: You are not a CASbot owner.")
 
     @dev.subcommand(description="Makes a poll - Dev Only")
@@ -92,6 +99,8 @@ class Developer(commands.Cog):
         ping_role: nextcord.Role = nextcord.SlashOption(name="role", description="Role to ping", required=False)
     ):
         if self.bot.is_owner(interaction.user):
+            print(f"\nDEBUG: Making poll...\n")
+
             if not ping_role:
                 ping = ""
             else:
@@ -104,6 +113,7 @@ class Developer(commands.Cog):
             await interaction.response.send_message(":white_check_mark: Poll sent!", ephemeral=True)
 
         else:
+            print(f"\nDEBUG: /poll denied user\n")
             await interaction.response.send_message(":x: You are not a CASbot owner.")
 
     @dev.subcommand(description="Sends a message via the debug webhook - Dev Only")
@@ -113,8 +123,10 @@ class Developer(commands.Cog):
         message: str = nextcord.SlashOption(name="message", description="Message to send", required=True)
     ):
         if self.bot.is_owner(interaction.user):
+            print(f"\nDEBUG: Sent {message} through debug webhook\n")
             self.debug.send(f"**CASbot: {message}")
             await interaction.response.send_message(f":white_check_mark: Sent message \"{message}\" through debug webhook.")
         
         else:
+            print(f"\nDEBUG: /dev webhook denied user\n")
             await interaction.response.send_message(":x: You are not a CASbot owner.")

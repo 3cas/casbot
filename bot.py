@@ -13,7 +13,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
     intents = nextcord.Intents.all()
     intents.members = True
 
-    bot = commands.Bot(command_prefix="c!", description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
+    bot = commands.Bot(description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
 
     logging.basicConfig(level=logging.INFO)
 
@@ -50,14 +50,6 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         }
 
         await bot.change_presence(status=status_types[status_type], activity=nextcord.Activity(name=activity_name, type=activity_types[activity_type]))
-
-    @bot.event
-    async def on_message(message):
-        if message.author == bot.user:
-            return
-
-        if message.content.startswith('c!hello'):
-            await message.channel.send('Hello!')
 
     try:
         bot.run(TOKEN)
