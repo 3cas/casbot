@@ -1,10 +1,9 @@
-from tkinter import Misc
 import nextcord
 from nextcord.ext import commands
 import logging
 import json
 
-def run(TOKEN, debug: nextcord.SyncWebhook, db):
+def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
     with open("config.json", "r") as f:
         config = json.load(f)
     
