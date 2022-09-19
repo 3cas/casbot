@@ -1,36 +1,33 @@
 import nextcord
 from nextcord.ext import commands
 import requests
-import dotenv
-
-import utility
-from utility import db
-
-dotenv.load_dotenv()
 
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
 class Miscellaneous(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+    guilds = []
 
-    @nextcord.slash_command(description="Gets a random Kanye quote", guild_ids=utility.mains)
+    def __init__(self, bot, db):
+        self.bot = bot
+        self.db = db
+
+    @nextcord.slash_command(description="Gets a random Kanye quote", guild_ids=guilds)
     async def kanyequote(self, interaction: nextcord.Interaction):
         quote = requests.get("https://api.kanye.rest/").json()["quote"]
         embed = nextcord.Embed(color=nextcord.Color.from_rgb(0, 0, 0), title="Kanye Quote", description=f"\"{quote}\"\n\t- Kanye West")
         await interaction.response.send_message(embed=embed)
 
-    @nextcord.slash_command(description="Gets a random anime catgirl", guild_ids=utility.mains)
+    @nextcord.slash_command(description="Gets a random anime catgirl", guild_ids=guilds)
     async def neko(self, interaction: nextcord.Interaction):
         neko_img = requests.get("https://nekos.best/api/v1/nekos").json()["url"]
         await interaction.response.send_message(neko_img)
 
-    @nextcord.slash_command(description="Gets a random doge (shibe) image", guild_ids=utility.mains)
+    @nextcord.slash_command(description="Gets a random doge (shibe) image", guild_ids=guilds)
     async def doge(self, interaction: nextcord.Interaction):
         doge_img = requests.get("http://shibe.online/api/shibes").json()[0]
         await interaction.response.send_message(doge_img)
 
-    @nextcord.slash_command(description="Sets and retrives per-user notes", guild_ids=utility.mains)
+    @nextcord.slash_command(description="Sets and retrives per-user notes", guild_ids=guilds)
     async def usernote(self):
         None
 
@@ -44,7 +41,7 @@ class Miscellaneous(commands.Cog):
             user = interaction.user
 
         try:
-            ref = db.reference("/casbot/usernotes/"+str(user.id))
+            ref = self.db.reference("/casbot/usernotes/"+str(user.id))
             await interaction.response.send_message(f":paper: User note for **{user.name}**:\n> {ref.get()}")
         except Exception as e:
             await interaction.response.send_message(":x: ERROR: "+str(e))
@@ -56,13 +53,13 @@ class Miscellaneous(commands.Cog):
         note: str = nextcord.SlashOption(name="note", description="The new note you want to change to", required=True)
     ):
         try:
-            ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
+            ref = self.db.reference("/casbot/usernotes/"+str(interaction.user.id))
             ref.set(note)
             await interaction.response.send_message(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
         except Exception as e:
             await interaction.response.send_message(":x: ERROR: "+str(e))
 
-    @nextcord.slash_command(description="Sends colored code block text using ANSI codes", guild_ids=utility.mains)
+    @nextcord.slash_command(description="Sends colored code block text using ANSI codes", guild_ids=guilds)
     async def colortext(
         self,
         interaction: nextcord.Interaction,
@@ -79,6 +76,3 @@ class Miscellaneous(commands.Cog):
 
         color_string = f"\u001b[{style}{';'+str(color) if color else ''}{';'+str(background) if background else ''}m{text}"
         await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\nCopy everything below this to use it elsewhere:\n\n\`\`\`ansi\n{color_string}\n\`\`\`")
-
-def setup(bot):
-    bot.add_cog(Miscellaneous(bot))

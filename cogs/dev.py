@@ -2,16 +2,31 @@ import nextcord
 from nextcord.ext import commands
 import time
 
-import utility
-from utility import db
-
 # Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
 
 class Developer(commands.Cog):
-    def __init__(self, bot):
+    guilds = []
+
+    def __init__(self, bot, db):
         self.bot = bot
+        self.db = db
+
+        self.status_types = {
+            "online": nextcord.Status.online, 
+            "dnd": nextcord.Status.dnd, 
+            "idle": nextcord.Status.idle, 
+            "invisible": nextcord.Status.invisible
+        }
+
+        self.activity_types = {
+            "playing": nextcord.ActivityType.playing, 
+            "streaming": nextcord.ActivityType.streaming, 
+            "listening to": nextcord.ActivityType.listening, 
+            "watching": nextcord.ActivityType.watching, 
+            "competing in": nextcord.ActivityType.competing
+        }
     
-    @nextcord.slash_command(description="Checks whether you are a CASbot developer or not", guild_ids=utility.mains)
+    @nextcord.slash_command(description="Checks whether you are a CASbot developer or not", guild_ids=guilds)
     async def checkowner(self, interaction: nextcord.Interaction):
         if self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: You are a CASbot owner!")
@@ -19,7 +34,7 @@ class Developer(commands.Cog):
         else:
             await interaction.response.send_message(":x: You are not a CASbot owner.")
 
-    @nextcord.slash_command(description="Spams a message - Dev Only", guild_ids=utility.mains)
+    @nextcord.slash_command(description="Spams a message - Dev Only", guild_ids=guilds)
     async def spam(
         self, 
         interaction: nextcord.Interaction,
@@ -36,7 +51,7 @@ class Developer(commands.Cog):
         else:
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
-    @nextcord.slash_command(description="CASbot Developer commands", guild_ids=utility.owner_guilds)
+    @nextcord.slash_command(description="CASbot Developer commands", guild_ids=guilds)
     async def dev(self, interaction: nextcord.Interaction):
         await interaction.response.send_message("Hi")
 
@@ -48,11 +63,11 @@ class Developer(commands.Cog):
         activity_type: str = nextcord.SlashOption(name="activitytype", description="Choose the activity type for the bot", required=True, choices=["playing", "streaming", "listening to", "watching", "competing in"]),
         activity_name: str = nextcord.SlashOption(name="activityname", description="Specify the custom activity name", required=True)
     ):
-        if self.bot.is_owner(interaction.user):        
-            await self.bot.change_presence(status=utility.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=utility.activity_types[activity_type]))
+        if self.bot.is_owner(interaction.user):  
+            await self.bot.change_presence(status=self.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=self.activity_types[activity_type]))
             await interaction.response.send_message(f":white_check_mark: Activity successfully set to **{activity_type} {activity_name}** ({status_type}).")
 
-            ref = db.reference("/casbot/data/presence/")
+            ref = self.db.reference("/casbot/data/presence/")
             ref.child("statusType").set(status_type)
             ref.child("activityType").set(activity_type)
             ref.child("activityValue").set(activity_name)
@@ -98,11 +113,8 @@ class Developer(commands.Cog):
         message: str = nextcord.SlashOption(name="message", description="Message to send", required=True)
     ):
         if self.bot.is_owner(interaction.user):
-            utility.debug_webhook.send(f"**CASbot: {message}")
+            self.debug.send(f"**CASbot: {message}")
             await interaction.response.send_message(f":white_check_mark: Sent message \"{message}\" through debug webhook.")
         
         else:
             await interaction.response.send_message(":x: You are not a CASbot owner.")
-
-def setup(bot):
-    bot.add_cog(Developer(bot))
