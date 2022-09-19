@@ -15,7 +15,7 @@ class BotProcess:
     def check(self):
         if not self.proc.is_alive():
             debug.send(f"**{self.name}:** Bot process is dead - restarting!")
-            self.restart()
+            self.start()
 
 casbot = BotProcess("CASbot", "casbot.py")
 doge = BotProcess("DogeDenBot", "dogedenbot.py")

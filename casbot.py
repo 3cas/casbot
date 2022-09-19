@@ -5,6 +5,7 @@ import os
 import dotenv
 
 import utility
+from utility import db
 
 dotenv.load_dotenv()
 
@@ -27,7 +28,7 @@ async def on_ready():
     print(f'We have logged in as {bot.user}')
     utility.debug_webhook.send("**CASbot:** Bot has started successfully")
 
-    ref = utility.db.reference("/casbot/data/presence/")
+    ref = db.reference("/casbot/data/presence/")
     status_type = ref.child("statusType").get()
     activity_type = ref.child("activityType").get()
     activity_name = ref.child("activityValue").get()

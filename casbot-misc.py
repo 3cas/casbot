@@ -4,6 +4,7 @@ import requests
 import dotenv
 
 import utility
+from utility import db
 
 dotenv.load_dotenv()
 
@@ -43,7 +44,7 @@ class Miscellaneous(commands.Cog):
             user = interaction.user
 
         try:
-            ref = utility.db.reference("/casbot/usernotes/"+str(user.id))
+            ref = db.reference("/casbot/usernotes/"+str(user.id))
             await interaction.response.send_message(f":paper: User note for **{user.name}**:\n> {ref.get()}")
         except Exception as e:
             await interaction.response.send_message(":x: ERROR: "+str(e))
@@ -55,7 +56,7 @@ class Miscellaneous(commands.Cog):
         note: str = nextcord.SlashOption(name="note", description="The new note you want to change to", required=True)
     ):
         try:
-            ref = utility.db.reference("/casbot/usernotes/"+str(interaction.user.id))
+            ref = db.reference("/casbot/usernotes/"+str(interaction.user.id))
             ref.set(note)
             await interaction.response.send_message(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
         except Exception as e:

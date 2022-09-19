@@ -3,6 +3,7 @@ from nextcord.ext import commands
 import time
 
 import utility
+from utility import db
 
 # Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
 
@@ -51,7 +52,7 @@ class Developer(commands.Cog):
             await self.bot.change_presence(status=utility.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=utility.activity_types[activity_type]))
             await interaction.response.send_message(f":white_check_mark: Activity successfully set to **{activity_type} {activity_name}** ({status_type}).")
 
-            ref = utility.db.reference("/casbot/data/presence/")
+            ref = db.reference("/casbot/data/presence/")
             ref.child("statusType").set(status_type)
             ref.child("activityType").set(activity_type)
             ref.child("activityValue").set(activity_name)
