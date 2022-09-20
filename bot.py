@@ -24,10 +24,6 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
 
     #logging.basicConfig(level=logging.INFO)
 
-    for cog in (Developer, Miscellaneous):
-        cog.guilds = guilds
-        bot.add_cog(cog(bot, db))
-
     @bot.event
     async def on_ready():
         print(f'CASBOT: We have logged in as {bot.user}')
@@ -54,6 +50,16 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         }
 
         await bot.change_presence(status=status_types[status_type], activity=nextcord.Activity(name=activity_name, type=activity_types[activity_type]))
+
+        print("\nBot in guilds:")
+        async for guild in bot.fetch_guilds():
+            print(f"{guild.name} [{guild.id}]")
+            guilds.append(guild.id)
+        print()
+
+        for cog in (Developer, Miscellaneous):
+            cog.guilds = guilds
+            bot.add_cog(cog(bot, db))
 
     try:
         bot.run(TOKEN)
