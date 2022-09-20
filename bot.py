@@ -54,7 +54,8 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         print("\nBot in guilds:")
         async for guild in bot.fetch_guilds():
             print(f"{guild.name} [{guild.id}]")
-            guilds.append(guild.id)
+            if guild.id not in guilds:
+                guilds.append(guild.id)
         print()
 
         for cog in (Developer, Miscellaneous):
