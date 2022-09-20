@@ -20,7 +20,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
     intents = nextcord.Intents.all()
     intents.members = True
 
-    bot = commands.Bot(description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
+    bot = commandds.Bot(description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
 
     logging.basicConfig(level=logging.INFO)
 
