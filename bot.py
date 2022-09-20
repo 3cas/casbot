@@ -63,7 +63,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
 if __name__ == "__main__":
     os.chdir(sys.path[0])
 
-    dotenv.load_dotenv()
+    #dotenv.load_dotenv()
 
     TOKEN = os.getenv("CASBOT_TOKEN")
     WEBHOOK_URL = os.getenv("WEBHOOK_URL")
