@@ -3,6 +3,9 @@ from nextcord.ext import commands
 import logging
 import json
 import sys
+import os
+from firebase_admin import credentials, initialize_app, db
+import dotenv
 
 def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
     os.chdir(sys.path[0])
@@ -60,10 +63,6 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         debug.send("**CASbot:** MAIN ERROR: "+str(e))
 
 if __name__ == "__main__":
-    from firebase_admin import credentials, initialize_app, db
-    import dotenv
-    import os
-
     dotenv.load_dotenv()
 
     TOKEN = os.getenv("CASBOT_TOKEN")
