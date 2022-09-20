@@ -28,7 +28,7 @@ class Developer(commands.Cog):
     
     @nextcord.slash_command(description="Checks whether you are a CASbot developer or not", guild_ids=guilds)
     async def checkowner(self, interaction: nextcord.Interaction):
-        if self.bot.is_owner(interaction.user):
+        if await self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: You are a CASbot owner!")
 
         else:
@@ -42,7 +42,7 @@ class Developer(commands.Cog):
         delay: float = nextcord.SlashOption(name="delay", description="How long to wait between each message 0 60 secs", required=True),
         content: str = nextcord.SlashOption(name="content", description="Text to send", required=True)
     ):
-        if self.bot.is_owner(interaction.user):
+        if await self.bot.is_owner(interaction.user):
             print(f"\nDEBUG: Spamming \"{content}\" {times} times with a delay of {delay} seconds\n")
             await interaction.response.send_message(":white_check_mark: Sending your message(s)!")
             for i in range(times):
@@ -65,7 +65,7 @@ class Developer(commands.Cog):
         activity_type: str = nextcord.SlashOption(name="activitytype", description="Choose the activity type for the bot", required=True, choices=["playing", "streaming", "listening to", "watching", "competing in"]),
         activity_name: str = nextcord.SlashOption(name="activityname", description="Specify the custom activity name", required=True)
     ):
-        if self.bot.is_owner(interaction.user):
+        if await self.bot.is_owner(interaction.user):
             print(f"\nDEBUG: Changing presence to {activity_type} {activity_name} ({status_type})\n")
 
             await self.bot.change_presence(status=self.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=self.activity_types[activity_type]))
@@ -82,7 +82,7 @@ class Developer(commands.Cog):
 
     @dev.subcommand(description="Shuts down or restarts the bot - Dev Only")
     async def shutdown(self, interaction: nextcord.Interaction):
-        if self.bot.is_owner(interaction.user):
+        if await self.bot.is_owner(interaction.user):
             print(f"\nDEBUG: RECEIVED SHUTDOWN COMMAND\n")
             await interaction.response.send_message(":white_check_mark: Shutting down...")
             await self.bot.close()
@@ -98,7 +98,7 @@ class Developer(commands.Cog):
         poll_content: str = nextcord.SlashOption(name="content", description="Poll content", required=True),
         ping_role: nextcord.Role = nextcord.SlashOption(name="role", description="Role to ping", required=False)
     ):
-        if self.bot.is_owner(interaction.user):
+        if await self.bot.is_owner(interaction.user):
             print(f"\nDEBUG: Making poll...\n")
 
             if not ping_role:
@@ -122,7 +122,7 @@ class Developer(commands.Cog):
         interaction: nextcord.Interaction,
         message: str = nextcord.SlashOption(name="message", description="Message to send", required=True)
     ):
-        if self.bot.is_owner(interaction.user):
+        if await self.bot.is_owner(interaction.user):
             print(f"\nDEBUG: Sent {message} through debug webhook\n")
             self.debug.send(f"**CASbot: {message}")
             await interaction.response.send_message(f":white_check_mark: Sent message \"{message}\" through debug webhook.")
