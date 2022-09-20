@@ -2,8 +2,11 @@ import nextcord
 from nextcord.ext import commands
 import logging
 import json
+import sys
 
 def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
+    os.chdir(sys.path[0])
+
     with open("config.json", "r") as f:
         config = json.load(f)
     
