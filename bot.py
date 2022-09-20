@@ -61,6 +61,8 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         debug.send("**CASbot:** MAIN ERROR: "+str(e))
 
 if __name__ == "__main__":
+    os.chdir(sys.path[0])
+
     dotenv.load_dotenv()
 
     TOKEN = os.getenv("CASBOT_TOKEN")
