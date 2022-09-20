@@ -63,7 +63,10 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
 if __name__ == "__main__":
     os.chdir(sys.path[0])
 
-    #dotenv.load_dotenv()
+    if len(sys.argv) > 1 and sys.argv[1] == "--no-env":
+        print("Not loading .env file!")
+    else:
+        dotenv.load_dotenv() # .env is not needed if using bot controller to run file
 
     TOKEN = os.getenv("CASBOT_TOKEN")
     WEBHOOK_URL = os.getenv("WEBHOOK_URL")
