@@ -11,10 +11,6 @@ from cogs.dev import Developer
 from cogs.misc import Miscellaneous
 
 def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
-    run_dir = os.path.dirname(__file__)
-    print(f"RUNNING IN: {run_dir}")
-    os.chdir(run_dir)
-
     with open("config.json", "r") as f:
         config = json.load(f)
     
