@@ -15,7 +15,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         config = json.load(f)
     
     owners = config["owners"]
-    guilds = config["guilds"]
+    guilds = config["manual_guilds"]
 
     intents = nextcord.Intents.all()
     intents.members = True
@@ -51,16 +51,18 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
 
         await bot.change_presence(status=status_types[status_type], activity=nextcord.Activity(name=activity_name, type=activity_types[activity_type]))
 
-        print("\nBot in guilds:")
+        print("Bot in guilds:")
         async for guild in bot.fetch_guilds():
-            print(f"{guild.name} [{guild.id}]")
+            print(f" - {guild.name} [{guild.id}]")
             if guild.id not in guilds:
                 guilds.append(guild.id)
-        print()
 
         for cog in (Developer, Miscellaneous):
             cog.guilds = guilds
             bot.add_cog(cog(bot, db))
+            print(f"Added cog {cog}")
+
+        print(f"Boot complete, bot is ready")
 
     try:
         bot.run(TOKEN)
