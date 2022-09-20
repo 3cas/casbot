@@ -7,6 +7,9 @@ import os
 from firebase_admin import credentials, initialize_app, db
 import dotenv
 
+from cogs.dev import Developer
+from cogs.misc import Miscellaneous
+
 def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
     run_dir = os.path.dirname(__file__)
     print(f"RUNNING IN: {run_dir}")
@@ -24,9 +27,6 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
     bot = commands.Bot(description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
 
     logging.basicConfig(level=logging.INFO)
-
-    from cogs.dev import Developer
-    from cogs.misc import Miscellaneous
 
     for cog in (Developer, Miscellaneous):
         cog.guilds = guilds
