@@ -8,6 +8,7 @@ from firebase_admin import credentials, initialize_app, db
 import dotenv
 
 def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
+    print(f"DEBUG: {sys.path[0]}")
     os.chdir(sys.path[0])
 
     with open("config.json", "r") as f:
