@@ -13,20 +13,20 @@ class Miscellaneous(commands.Cog):
 
     @nextcord.slash_command(description="Gets a random Kanye quote", guild_ids=guilds)
     async def kanyequote(self, interaction: nextcord.Interaction):
-        print("\nDEBUG: Running /kanyequote\n")
+        print("CASBOT: Running /kanyequote")
         quote = requests.get("https://api.kanye.rest/").json()["quote"]
         embed = nextcord.Embed(color=nextcord.Color.from_rgb(0, 0, 0), title="Kanye Quote", description=f"\"{quote}\"\n\t- Kanye West")
         await interaction.response.send_message(embed=embed)
 
     @nextcord.slash_command(description="Gets a random anime catgirl", guild_ids=guilds)
     async def neko(self, interaction: nextcord.Interaction):
-        print("\nDEBUG: Running /neko\n")
+        print("CASBOT: Running /neko")
         neko_img = requests.get("https://nekos.best/api/v2/neko").json()["results"][0]["url"]
         await interaction.response.send_message(neko_img)
 
     @nextcord.slash_command(description="Gets a random doge (shibe) image", guild_ids=guilds)
     async def doge(self, interaction: nextcord.Interaction):
-        print("\nDEBUG: Running /doge\n")
+        print("CASBOT: Running /doge")
         doge_img = requests.get("http://shibe.online/api/shibes").json()[0]
         await interaction.response.send_message(doge_img)
 
@@ -40,7 +40,7 @@ class Miscellaneous(commands.Cog):
         interaction: nextcord.Interaction,
         user: nextcord.User = nextcord.SlashOption(name="user", description="User to retrieve note of", required=False),
     ):
-        print("\nDEBUG: Running /usernote get\n")
+        print("CASBOT: Running /usernote get")
 
         if not user:
             user = interaction.user
@@ -57,7 +57,7 @@ class Miscellaneous(commands.Cog):
         interaction: nextcord.Interaction,
         note: str = nextcord.SlashOption(name="note", description="The new note you want to change to", required=True)
     ):
-        print("\nDEBUG: Running /usernote set\n")
+        print("CASBOT: Running /usernote set")
 
         try:
             ref = self.db.reference("/casbot/usernotes/"+str(interaction.user.id))
@@ -75,7 +75,7 @@ class Miscellaneous(commands.Cog):
         color: str = nextcord.SlashOption(name="color", description="Color of the text (optional)", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
         background: str = nextcord.SlashOption(name="background", description="Color of the background/highlight (optional)", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
     ):
-        print("\nDEBUG: Running /colortext\n")
+        print("CASBOT: Running /colortext")
 
         text = "\n".join(text.split("%n"))
 

@@ -22,7 +22,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
 
     bot = commands.Bot(description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
 
-    logging.basicConfig(level=logging.INFO)
+    #logging.basicConfig(level=logging.INFO)
 
     for cog in (Developer, Miscellaneous):
         cog.guilds = guilds
@@ -30,7 +30,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
 
     @bot.event
     async def on_ready():
-        print(f'We have logged in as {bot.user}')
+        print(f'CASBOT: We have logged in as {bot.user}')
         debug.send("**CASbot:** Bot has started successfully")
 
         ref = db.reference("/casbot/data/presence/")
