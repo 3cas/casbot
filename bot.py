@@ -58,12 +58,6 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
             if guild.id not in guilds:
                 guilds.append(guild.id)
 
-        with open(os.path.join("cogs", "guilds.txt"), "w") as f:
-            write = []
-            for guild_id in guilds:
-                write.append(str(guild_id) + "\n")
-            f.writelines(write)
-
         for cog in (Developer, Miscellaneous, Meta):
             bot.add_cog(cog(bot, db))
             print(f"Added cog {cog}")

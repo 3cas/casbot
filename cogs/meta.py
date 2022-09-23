@@ -1,8 +1,6 @@
 import nextcord
 from nextcord.ext import commands
 
-from cogs.guilds import *
-
 # Meta cog: For information about the bot's uptime, latency, and Libre board temperature
 
 class Meta(commands.Cog):
@@ -10,11 +8,11 @@ class Meta(commands.Cog):
         self.bot = bot
         self.db = db
     
-    @nextcord.slash_command(description="Gets latency of the bot", guild_ids=guilds)
+    @nextcord.slash_command(description="Gets latency of the bot")
     async def ping(self, interaction: nextcord.Interaction):
         await interaction.response.send_message(f"My latency is `{self.bot.latency}ms.`")
         
-    @nextcord.slash_command(description="Gets temperature of the bot's host device", guild_ids=guilds)
+    @nextcord.slash_command(description="Gets temperature of the bot's host device")
     async def temperature(self, interaction: nextcord.Interaction):
         with open("/sys/class/hwmon/hwmon0/temp1_input", "r") as f:
             temperature = f.read()

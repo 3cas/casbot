@@ -2,8 +2,6 @@ import nextcord
 from nextcord.ext import commands
 import time
 
-from cogs.guilds import *
-
 # Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
 
 class Developer(commands.Cog):
@@ -26,7 +24,7 @@ class Developer(commands.Cog):
             "competing in": nextcord.ActivityType.competing
         }
     
-    @nextcord.slash_command(description="Checks whether you are a CASbot developer or not", guild_ids=guilds)
+    @nextcord.slash_command(description="Checks whether you are a CASbot developer or not")
     async def checkowner(self, interaction: nextcord.Interaction):
         if await self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: You are a CASbot owner!")
@@ -34,7 +32,7 @@ class Developer(commands.Cog):
         else:
             await interaction.response.send_message(":x: You are not a CASbot owner.")
 
-    @nextcord.slash_command(description="Spams a message - Dev Only", guild_ids=guilds)
+    @nextcord.slash_command(description="Spams a message - Dev Only")
     async def spam(
         self, 
         interaction: nextcord.Interaction,
@@ -53,7 +51,7 @@ class Developer(commands.Cog):
             print(f"CASBOT: /spam denied user")
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
-    @nextcord.slash_command(description="CASbot Developer commands", guild_ids=guilds)
+    @nextcord.slash_command(description="CASbot Developer commands")
     async def dev(self, interaction: nextcord.Interaction):
         None
 

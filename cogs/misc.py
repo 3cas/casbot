@@ -2,8 +2,6 @@ import nextcord
 from nextcord.ext import commands
 import requests
 
-from cogs.guilds import *
-
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
 class Miscellaneous(commands.Cog):
@@ -11,26 +9,26 @@ class Miscellaneous(commands.Cog):
         self.bot = bot
         self.db = db
 
-    @nextcord.slash_command(description="Gets a random Kanye quote", guild_ids=guilds)
+    @nextcord.slash_command(description="Gets a random Kanye quote")
     async def kanyequote(self, interaction: nextcord.Interaction):
         print("CASBOT: Running /kanyequote")
         quote = requests.get("https://api.kanye.rest/").json()["quote"]
         embed = nextcord.Embed(color=nextcord.Color.from_rgb(0, 0, 0), title="Kanye Quote", description=f"\"{quote}\"\n\t- Kanye West")
         await interaction.response.send_message(embed=embed)
 
-    @nextcord.slash_command(description="Gets a random anime catgirl", guild_ids=guilds)
+    @nextcord.slash_command(description="Gets a random anime catgirl")
     async def neko(self, interaction: nextcord.Interaction):
         print("CASBOT: Running /neko")
         neko_img = requests.get("https://nekos.best/api/v2/neko").json()["results"][0]["url"]
         await interaction.response.send_message(neko_img)
 
-    @nextcord.slash_command(description="Gets a random doge (shibe) image", guild_ids=guilds)
+    @nextcord.slash_command(description="Gets a random doge (shibe) image")
     async def doge(self, interaction: nextcord.Interaction):
         print("CASBOT: Running /doge")
         doge_img = requests.get("http://shibe.online/api/shibes").json()[0]
         await interaction.response.send_message(doge_img)
 
-    @nextcord.slash_command(description="Sets and retrives per-user notes", guild_ids=guilds)
+    @nextcord.slash_command(description="Sets and retrives per-user notes")
     async def usernote(self):
         None
 
@@ -66,7 +64,7 @@ class Miscellaneous(commands.Cog):
         except Exception as e:
             await interaction.response.send_message(":x: ERROR: "+str(e))
 
-    @nextcord.slash_command(description="Sends colored code block text using ANSI codes", guild_ids=guilds)
+    @nextcord.slash_command(description="Sends colored code block text using ANSI codes")
     async def colortext(
         self,
         interaction: nextcord.Interaction,
