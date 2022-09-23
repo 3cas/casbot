@@ -2,7 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import requests
 
-from cogs.guilds import guilds
+from cogs.guilds import *
 
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
