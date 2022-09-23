@@ -56,13 +56,8 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
 
         for cog in (Developer, Miscellaneous, Meta):
             cog.guilds = guilds
-            print(f"{cog} guilds: {cog.guilds}")
-            try:
-                bot.add_cog(cog(bot, db))
-            except Exception as err:
-                print(f"Error loading cog {cog}: {err}")
-            else:
-                print(f"Added cog {cog}")
+            bot.add_cog(cog(bot, db))
+            print(f"Added cog {cog}")
 
         print(f"Boot complete, bot is ready")
 
