@@ -2,11 +2,11 @@ import nextcord
 from nextcord.ext import commands
 import requests
 
+from guilds import guilds
+
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
 class Miscellaneous(commands.Cog):
-    guilds = []
-
     def __init__(self, bot, db):
         self.bot = bot
         self.db = db

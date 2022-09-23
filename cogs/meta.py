@@ -1,11 +1,11 @@
 import nextcord
 from nextcord.ext import commands
 
+from guilds import guilds
+
 # Meta cog: For information about the bot's uptime, latency, and Libre board temperature
 
 class Meta(commands.Cog):
-    guilds = []
-
     def __init__(self, bot, db):
         self.bot = bot
         self.db = db

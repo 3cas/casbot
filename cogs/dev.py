@@ -2,11 +2,11 @@ import nextcord
 from nextcord.ext import commands
 import time
 
+from guilds import guilds
+
 # Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
 
 class Developer(commands.Cog):
-    guilds = []
-
     def __init__(self, bot, db):
         self.bot = bot
         self.db = db
