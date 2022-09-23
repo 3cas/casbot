@@ -61,7 +61,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
         with open(os.path.join("cogs", "guilds.txt"), "w") as f:
             write = []
             for guild_id in guilds:
-                write.append(str(guild_id))
+                write.append(str(guild_id) + "\n")
             f.writelines(write)
 
         for cog in (Developer, Miscellaneous, Meta):
