@@ -64,6 +64,9 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
                 write.append(str(guild_id) + "\n")
             f.writelines(write)
 
+        from cogs.guilds import guilds
+        print(guilds)
+
         for cog in (Developer, Miscellaneous, Meta):
             bot.add_cog(cog(bot, db))
             print(f"Added cog {cog}")
