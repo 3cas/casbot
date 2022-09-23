@@ -7,9 +7,6 @@ import os
 from firebase_admin import credentials, initialize_app, db
 import dotenv
 
-from cogs.dev import Developer
-from cogs.misc import Miscellaneous
-
 def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
     with open("config.json", "r") as f:
         config = json.load(f)
@@ -57,10 +54,14 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
             if guild.id not in guilds:
                 guilds.append(guild.id)
 
-        for cog in (Developer, Miscellaneous):
+        for cog in (Developer, Miscellaneous, Meta):
             cog.guilds = guilds
-            bot.add_cog(cog(bot, db))
-            print(f"Added cog {cog}")
+            try:
+                bot.add_cog(cog(bot, db))
+            except Exception as err:
+                print(f"Error loading cog {cog}: {err}")
+            else:
+                print(f"Added cog {cog}")
 
         print(f"Boot complete, bot is ready")
 
@@ -70,6 +71,10 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
         debug.send("**CASbot:** MAIN ERROR: "+str(e))
 
 if __name__ == "__main__":
+    from cogs.dev import Developer
+    from cogs.misc import Miscellaneous
+    from cogs.meta import Meta
+
     os.chdir(sys.path[0])
 
     if len(sys.argv) > 1 and sys.argv[1] == "--no-env":
