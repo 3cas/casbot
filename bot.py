@@ -7,7 +7,7 @@ import os
 from firebase_admin import credentials, initialize_app, db
 import dotenv
 
-def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
+def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
     with open("config.json", "r") as f:
         config = json.load(f)
     
@@ -19,7 +19,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db):
 
     bot = commands.Bot(description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
 
-    #logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.INFO) if log else None
 
     @bot.event
     async def on_ready():
@@ -94,4 +94,4 @@ if __name__ == "__main__":
         'databaseURL': 'https://casbot-db-default-rtdb.firebaseio.com'
     })
 
-    run(TOKEN, debug_webhook, db)
+    run(TOKEN, debug_webhook, db, True)
