@@ -1,6 +1,5 @@
 import nextcord
 from nextcord.ext import commands
-import time
 
 # Meta cog: For information about the bot's uptime, latency, and Libre board temperature
 
