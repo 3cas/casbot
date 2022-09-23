@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 
-from guilds import guilds
+from cogs.guilds import guilds
 
 # Meta cog: For information about the bot's uptime, latency, and Libre board temperature
 

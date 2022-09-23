@@ -2,7 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import time
 
-from guilds import guilds
+from cogs.guilds import guilds
 
 # Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
 
