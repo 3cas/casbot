@@ -12,7 +12,7 @@ class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command(description="Gets a random Kanye quote", guild_ids=config["manual_guilds"])
+    @nextcord.slash_command(description="Gets a random Kanye quote")
     async def kanyequote(self, interaction: nextcord.Interaction):
         print("CASBOT: Running /kanyequote")
         quote = requests.get("https://api.kanye.rest/").json()["quote"]

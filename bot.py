@@ -14,13 +14,17 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, log: bool = False):
     with open("config.json", "r") as f:
         config = json.load(f)
     
-    owners = config["owners"]
     guilds = config["manual_guilds"]
 
-    intents = nextcord.Intents.all()
-    intents.members = True
+    # intents = nextcord.Intents.all()
+    # intents.members = True
 
-    bot = commands.Bot(description="CASbot is a test bot created by weirdcease#0001", owner_ids=owners, intents=intents)
+    bot = commands.Bot(
+        description="CASbot is a test bot created by weirdcease#0001", 
+        owner_ids=config["owners"], 
+        # intents=intents,
+        default_guild_ids=config["manual_guilds"]
+    )
 
     logging.basicConfig(level=logging.INFO) if log else None
 
