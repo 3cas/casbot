@@ -4,14 +4,13 @@ import logging
 import json
 import sys
 import os
-from firebase_admin import credentials, initialize_app, db
 import dotenv
 
 from cogs.dev import Developer
 from cogs.misc import Miscellaneous
 from cogs.meta import Meta
 
-def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
+def run(TOKEN: str, debug: nextcord.SyncWebhook, log: bool = False):
     with open("config.json", "r") as f:
         config = json.load(f)
     
@@ -30,10 +29,14 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
         print(f'CASBOT: We have logged in as {bot.user}')
         debug.send("**CASbot:** Bot has started successfully")
 
-        ref = db.reference("/casbot/data/presence/")
-        status_type = ref.child("statusType").get()
-        activity_type = ref.child("activityType").get()
-        activity_name = ref.child("activityValue").get()
+        # ref = db.reference("/casbot/data/presence/")
+        # status_type = ref.child("statusType").get()
+        # activity_type = ref.child("activityType").get()
+        # activity_name = ref.child("activityValue").get()
+
+        status_type = "online"
+        activity_name = "the game (you just lost)"
+        activity_type = "playing"
 
         status_types = {
             "online": nextcord.Status.online, 
@@ -59,7 +62,7 @@ def run(TOKEN: str, debug: nextcord.SyncWebhook, db, log: bool = False):
                 guilds.append(guild.id)
 
         for cog in (Developer, Miscellaneous, Meta):
-            bot.add_cog(cog(bot, db))
+            bot.add_cog(cog(bot))
             print(f"Added cog {cog}")
 
         print(f"Boot complete, bot is ready")
@@ -79,13 +82,9 @@ if __name__ == "__main__":
 
     TOKEN = os.getenv("CASBOT_TOKEN")
     WEBHOOK_URL = os.getenv("WEBHOOK_URL")
-    FIREBASE_KEY = json.loads(os.getenv("FIREBASE_KEY"), strict=False)
+
 
     debug_webhook = nextcord.SyncWebhook.from_url(WEBHOOK_URL)
 
-    cred = credentials.Certificate(FIREBASE_KEY)
-    initialize_app(cred, {
-        'databaseURL': 'https://casbot-db-default-rtdb.firebaseio.com'
-    })
 
-    run(TOKEN, debug_webhook, db, True)
+    run(TOKEN, debug_webhook, True)

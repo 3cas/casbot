@@ -5,9 +5,8 @@ import requests
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
 class Miscellaneous(commands.Cog):
-    def __init__(self, bot, db):
+    def __init__(self, bot):
         self.bot = bot
-        self.db = db
 
     @nextcord.slash_command(description="Gets a random Kanye quote")
     async def kanyequote(self, interaction: nextcord.Interaction):
@@ -28,41 +27,41 @@ class Miscellaneous(commands.Cog):
         doge_img = requests.get("http://shibe.online/api/shibes").json()[0]
         await interaction.response.send_message(doge_img)
 
-    @nextcord.slash_command(description="Sets and retrives per-user notes")
-    async def usernote(self):
-        None
+    # @nextcord.slash_command(description="Sets and retrives per-user notes")
+    # async def usernote(self):
+    #     None
 
-    @usernote.subcommand(name="get", description="Get someone's user note")
-    async def get_name(
-        self, 
-        interaction: nextcord.Interaction,
-        user: nextcord.User = nextcord.SlashOption(name="user", description="User to retrieve note of", required=False),
-    ):
-        print("CASBOT: Running /usernote get")
+    # @usernote.subcommand(name="get", description="Get someone's user note")
+    # async def get_name(
+    #     self, 
+    #     interaction: nextcord.Interaction,
+    #     user: nextcord.User = nextcord.SlashOption(name="user", description="User to retrieve note of", required=False),
+    # ):
+    #     print("CASBOT: Running /usernote get")
 
-        if not user:
-            user = interaction.user
+    #     if not user:
+    #         user = interaction.user
 
-        try:
-            ref = self.db.reference("/casbot/usernotes/"+str(user.id))
-            await interaction.response.send_message(f":paper: User note for **{user.name}**:\n> {ref.get()}")
-        except Exception as e:
-            await interaction.response.send_message(":x: ERROR: "+str(e))
+    #     try:
+    #         ref = self.db.reference("/casbot/usernotes/"+str(user.id))
+    #         await interaction.response.send_message(f":paper: User note for **{user.name}**:\n> {ref.get()}")
+    #     except Exception as e:
+    #         await interaction.response.send_message(":x: ERROR: "+str(e))
 
-    @usernote.subcommand(name="set", description="Set your own user note (This will overwrite the old one)")
-    async def set_name(
-        self,
-        interaction: nextcord.Interaction,
-        note: str = nextcord.SlashOption(name="note", description="The new note you want to change to", required=True)
-    ):
-        print("CASBOT: Running /usernote set")
+    # @usernote.subcommand(name="set", description="Set your own user note (This will overwrite the old one)")
+    # async def set_name(
+    #     self,
+    #     interaction: nextcord.Interaction,
+    #     note: str = nextcord.SlashOption(name="note", description="The new note you want to change to", required=True)
+    # ):
+    #     print("CASBOT: Running /usernote set")
 
-        try:
-            ref = self.db.reference("/casbot/usernotes/"+str(interaction.user.id))
-            ref.set(note)
-            await interaction.response.send_message(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
-        except Exception as e:
-            await interaction.response.send_message(":x: ERROR: "+str(e))
+    #     try:
+    #         ref = self.db.reference("/casbot/usernotes/"+str(interaction.user.id))
+    #         ref.set(note)
+    #         await interaction.response.send_message(f":white_check_mark: User note for **{interaction.user.name}** set to \"{note}\"")
+    #     except Exception as e:
+    #         await interaction.response.send_message(":x: ERROR: "+str(e))
 
     @nextcord.slash_command(description="Sends colored code block text using ANSI codes")
     async def colortext(

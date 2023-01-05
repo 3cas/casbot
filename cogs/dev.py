@@ -5,9 +5,8 @@ import time
 # Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
 
 class Developer(commands.Cog):
-    def __init__(self, bot, db):
+    def __init__(self, bot):
         self.bot = bot
-        self.db = db
 
         self.status_types = {
             "online": nextcord.Status.online, 
@@ -55,28 +54,28 @@ class Developer(commands.Cog):
     async def dev(self, interaction: nextcord.Interaction):
         None
 
-    @dev.subcommand(description="Change the bot's prescence - Dev Only")
-    async def presence(
-        self, 
-        interaction: nextcord.Interaction,
-        status_type: str = nextcord.SlashOption(name="statustype", description="Choose the status type for the bot", required=True, choices=["online", "dnd", "idle", "invisible"]),
-        activity_type: str = nextcord.SlashOption(name="activitytype", description="Choose the activity type for the bot", required=True, choices=["playing", "streaming", "listening to", "watching", "competing in"]),
-        activity_name: str = nextcord.SlashOption(name="activityname", description="Specify the custom activity name", required=True)
-    ):
-        if await self.bot.is_owner(interaction.user):
-            print(f"CASBOT: Changing presence to {activity_type} {activity_name} ({status_type})")
+    # @dev.subcommand(description="Change the bot's prescence - Dev Only")
+    # async def presence(
+    #     self, 
+    #     interaction: nextcord.Interaction,
+    #     status_type: str = nextcord.SlashOption(name="statustype", description="Choose the status type for the bot", required=True, choices=["online", "dnd", "idle", "invisible"]),
+    #     activity_type: str = nextcord.SlashOption(name="activitytype", description="Choose the activity type for the bot", required=True, choices=["playing", "streaming", "listening to", "watching", "competing in"]),
+    #     activity_name: str = nextcord.SlashOption(name="activityname", description="Specify the custom activity name", required=True)
+    # ):
+    #     if await self.bot.is_owner(interaction.user):
+    #         print(f"CASBOT: Changing presence to {activity_type} {activity_name} ({status_type})")
 
-            await self.bot.change_presence(status=self.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=self.activity_types[activity_type]))
-            await interaction.response.send_message(f":white_check_mark: Activity successfully set to **{activity_type} {activity_name}** ({status_type}).")
+    #         await self.bot.change_presence(status=self.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=self.activity_types[activity_type]))
+    #         await interaction.response.send_message(f":white_check_mark: Activity successfully set to **{activity_type} {activity_name}** ({status_type}).")
 
-            ref = self.db.reference("/casbot/data/presence/")
-            ref.child("statusType").set(status_type)
-            ref.child("activityType").set(activity_type)
-            ref.child("activityValue").set(activity_name)
+    #         ref = self.db.reference("/casbot/data/presence/")
+    #         ref.child("statusType").set(status_type)
+    #         ref.child("activityType").set(activity_type)
+    #         ref.child("activityValue").set(activity_name)
 
-        else:
-            print(f"CASBOT: /dev presence denied user")
-            await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
+    #     else:
+    #         print(f"CASBOT: /dev presence denied user")
+    #         await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
     @dev.subcommand(description="Shuts down or restarts the bot - Dev Only")
     async def shutdown(self, interaction: nextcord.Interaction):
