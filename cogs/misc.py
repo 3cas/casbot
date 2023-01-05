@@ -1,8 +1,10 @@
 import nextcord
 from nextcord.ext import commands
 import requests
+import json
 
-from bot import config
+with open("config.json", "r") as f:
+    config = json.load(f)
 
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 

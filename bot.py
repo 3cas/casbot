@@ -10,10 +10,10 @@ from cogs.dev import Developer
 from cogs.misc import Miscellaneous
 from cogs.meta import Meta
 
-with open("config.json", "r") as f:
-    config = json.load(f)
-
 def run(TOKEN: str, debug: nextcord.SyncWebhook, log: bool = False):
+    with open("config.json", "r") as f:
+        config = json.load(f)
+    
     owners = config["owners"]
     guilds = config["manual_guilds"]
 
