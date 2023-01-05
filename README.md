@@ -1,5 +1,7 @@
 # CASbot
 
+**Notice:** This bot has been archived. I am moving to discord.py instead of Nextcord.
+
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/fo-real.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)
