@@ -2,13 +2,15 @@ import nextcord
 from nextcord.ext import commands
 import requests
 
+from bot import config
+
 # Miscellaneous cog: for miscellaneous fun features like accessing the Kanye API and Neko API
 
 class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command(description="Gets a random Kanye quote")
+    @nextcord.slash_command(description="Gets a random Kanye quote", guild_ids=config["manual_guilds"])
     async def kanyequote(self, interaction: nextcord.Interaction):
         print("CASBOT: Running /kanyequote")
         quote = requests.get("https://api.kanye.rest/").json()["quote"]
