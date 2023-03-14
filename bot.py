@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import dotenv
 import os
-import requests
+import aiohttp
 
 dotenv.load_dotenv()
 TOKEN = os.getenv("CASBOT_TOKEN")
@@ -28,16 +28,16 @@ async def hello(interaction: discord.Interaction):
 async def fanfiction(interaction: discord.Interaction):
     await interaction.response.defer()
 
-    response = requests.post(
-        "https://api.deepai.org/api/text-generator", 
-        headers = {"api-key": DEEPAI_KEY},
-        files = {"text": (None, "my name is Walter Clements. i like fire trucks and moster trucks.")}
-    )
+    url = "https://api.deepai.org/api/text-generator", 
+    headers = {"api-key": DEEPAI_KEY}
+    data = {"text": (None, "my name is Walter Clements. i like fire trucks and moster trucks.")}
 
-    try:
-        result = response.json()["output"]
-    except KeyError:
-        result = response.text
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, headers=headers, data=data) as response:
+            try:
+                result = response.json()["output"]
+            except KeyError:
+                result = response.text
 
     await interaction.followup.send(result)
 
