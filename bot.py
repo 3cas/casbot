@@ -28,16 +28,16 @@ async def hello(interaction: discord.Interaction):
 async def fanfiction(interaction: discord.Interaction):
     await interaction.response.defer()
 
-    url = "https://api.deepai.org/api/text-generator", 
+    url = "https://api.deepai.org/api/text-generator"
     headers = {"api-key": DEEPAI_KEY}
     data = {"text": (None, "my name is Walter Clements. i like fire trucks and moster trucks.")}
 
     async with aiohttp.ClientSession() as session:
         async with session.post(url, headers=headers, data=data) as response:
             try:
-                result = response.json()["output"]
+                result = (await response.json())["output"]
             except KeyError:
-                result = response.text
+                result = await response.text()
 
     await interaction.followup.send(result)
 
