@@ -1,6 +1,6 @@
 # CASbot
 
-**Notice:** This bot has been archived. I am moving to discord.py instead of Nextcord.
+**Notice:** This bot was archived, but has now been unarchived. Rather than starting from scratch again, I will convert my codebase to use discord.py instead of Nextcord.
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/fo-real.svg)](https://forthebadge.com)
