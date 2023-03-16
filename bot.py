@@ -10,7 +10,11 @@ DEEPAI_KEY = os.getenv("DEEPAI_KEY")
 
 class MyBot(commands.Bot):
     def __init__(self, *, intents: discord.Intents = discord.Intents.default()):
-        super().__init__(intents=intents, command_prefix="c!")
+        super().__init__(
+            intents=intents,
+            command_prefix="c!",
+            owner_id=743340045628342324
+        )
 
     async def setup_hook(self) -> None:
         async for guild in self.fetch_guilds():
@@ -20,7 +24,7 @@ class MyBot(commands.Bot):
 
 bot = MyBot()
 
-@bot.tree.command(name="hello", description="Test command which says hello!")
+@bot.hybrid_command(name="hello", description="Test command which says hello!")
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message("Hello there!")
 

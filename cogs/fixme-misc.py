@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import requests
 import json
 
@@ -12,34 +12,34 @@ class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command(description="Gets a random Kanye quote")
-    async def kanyequote(self, interaction: nextcord.Interaction):
+    @discord.slash_command(description="Gets a random Kanye quote")
+    async def kanyequote(self, interaction: discord.Interaction):
         print("CASBOT: Running /kanyequote")
         quote = requests.get("https://api.kanye.rest/").json()["quote"]
-        embed = nextcord.Embed(color=nextcord.Color.from_rgb(0, 0, 0), title="Kanye Quote", description=f"\"{quote}\"\n\t- Kanye West")
+        embed = discord.Embed(color=discord.Color.from_rgb(0, 0, 0), title="Kanye Quote", description=f"\"{quote}\"\n\t- Kanye West")
         await interaction.response.send_message(embed=embed)
 
-    @nextcord.slash_command(description="Gets a random anime catgirl")
-    async def neko(self, interaction: nextcord.Interaction):
+    @discord.slash_command(description="Gets a random anime catgirl")
+    async def neko(self, interaction: discord.Interaction):
         print("CASBOT: Running /neko")
         neko_img = requests.get("https://nekos.best/api/v2/neko").json()["results"][0]["url"]
         await interaction.response.send_message(neko_img)
 
-    @nextcord.slash_command(description="Gets a random doge (shibe) image")
-    async def doge(self, interaction: nextcord.Interaction):
+    @discord.slash_command(description="Gets a random doge (shibe) image")
+    async def doge(self, interaction: discord.Interaction):
         print("CASBOT: Running /doge")
         doge_img = requests.get("http://shibe.online/api/shibes").json()[0]
         await interaction.response.send_message(doge_img)
 
-    # @nextcord.slash_command(description="Sets and retrives per-user notes")
+    # @discord.slash_command(description="Sets and retrives per-user notes")
     # async def usernote(self):
     #     None
 
     # @usernote.subcommand(name="get", description="Get someone's user note")
     # async def get_name(
     #     self, 
-    #     interaction: nextcord.Interaction,
-    #     user: nextcord.User = nextcord.SlashOption(name="user", description="User to retrieve note of", required=False),
+    #     interaction: discord.Interaction,
+    #     user: discord.User = discord.SlashOption(name="user", description="User to retrieve note of", required=False),
     # ):
     #     print("CASBOT: Running /usernote get")
 
@@ -55,8 +55,8 @@ class Miscellaneous(commands.Cog):
     # @usernote.subcommand(name="set", description="Set your own user note (This will overwrite the old one)")
     # async def set_name(
     #     self,
-    #     interaction: nextcord.Interaction,
-    #     note: str = nextcord.SlashOption(name="note", description="The new note you want to change to", required=True)
+    #     interaction: discord.Interaction,
+    #     note: str = discord.SlashOption(name="note", description="The new note you want to change to", required=True)
     # ):
     #     print("CASBOT: Running /usernote set")
 
@@ -67,14 +67,14 @@ class Miscellaneous(commands.Cog):
     #     except Exception as e:
     #         await interaction.response.send_message(":x: ERROR: "+str(e))
 
-    @nextcord.slash_command(description="Sends colored code block text using ANSI codes")
+    @discord.slash_command(description="Sends colored code block text using ANSI codes")
     async def colortext(
         self,
-        interaction: nextcord.Interaction,
-        text: str = nextcord.SlashOption(name="text", description="Text you want to colorize - You can use %n to insert a new line", required=True),
-        style: str = nextcord.SlashOption(name="format", description="Bold or underline (optional)", required=False, choices=["bold", "underline"]),
-        color: str = nextcord.SlashOption(name="color", description="Color of the text (optional)", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
-        background: str = nextcord.SlashOption(name="background", description="Color of the background/highlight (optional)", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
+        interaction: discord.Interaction,
+        text: str = discord.SlashOption(name="text", description="Text you want to colorize - You can use %n to insert a new line", required=True),
+        style: str = discord.SlashOption(name="format", description="Bold or underline (optional)", required=False, choices=["bold", "underline"]),
+        color: str = discord.SlashOption(name="color", description="Color of the text (optional)", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
+        background: str = discord.SlashOption(name="background", description="Color of the background/highlight (optional)", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
     ):
         print("CASBOT: Running /colortext")
 

@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import time
 
 # Developer cog: For developer commands such as restarting the bot or changing it's custom rich presence
@@ -9,35 +9,35 @@ class Developer(commands.Cog):
         self.bot = bot
 
         self.status_types = {
-            "online": nextcord.Status.online, 
-            "dnd": nextcord.Status.dnd, 
-            "idle": nextcord.Status.idle, 
-            "invisible": nextcord.Status.invisible
+            "online": discord.Status.online, 
+            "dnd": discord.Status.dnd, 
+            "idle": discord.Status.idle, 
+            "invisible": discord.Status.invisible
         }
 
         self.activity_types = {
-            "playing": nextcord.ActivityType.playing, 
-            "streaming": nextcord.ActivityType.streaming, 
-            "listening to": nextcord.ActivityType.listening, 
-            "watching": nextcord.ActivityType.watching, 
-            "competing in": nextcord.ActivityType.competing
+            "playing": discord.ActivityType.playing, 
+            "streaming": discord.ActivityType.streaming, 
+            "listening to": discord.ActivityType.listening, 
+            "watching": discord.ActivityType.watching, 
+            "competing in": discord.ActivityType.competing
         }
     
-    @nextcord.slash_command(description="Checks whether you are a CASbot developer or not")
-    async def checkowner(self, interaction: nextcord.Interaction):
+    @discord.slash_command(description="Checks whether you are a CASbot developer or not")
+    async def checkowner(self, interaction: discord.Interaction):
         if await self.bot.is_owner(interaction.user):
             await interaction.response.send_message(":white_check_mark: You are a CASbot owner!")
 
         else:
             await interaction.response.send_message(":x: You are not a CASbot owner.")
 
-    @nextcord.slash_command(description="Spams a message - Dev Only")
+    @discord.slash_command(description="Spams a message - Dev Only")
     async def spam(
         self, 
-        interaction: nextcord.Interaction,
-        times: int = nextcord.SlashOption(name="times", description="How many times to repeat the message 1 10000", required=True),
-        delay: float = nextcord.SlashOption(name="delay", description="How long to wait between each message 0 60 secs", required=True),
-        content: str = nextcord.SlashOption(name="content", description="Text to send", required=True)
+        interaction: discord.Interaction,
+        times: int = discord.SlashOption(name="times", description="How many times to repeat the message 1 10000", required=True),
+        delay: float = discord.SlashOption(name="delay", description="How long to wait between each message 0 60 secs", required=True),
+        content: str = discord.SlashOption(name="content", description="Text to send", required=True)
     ):
         if await self.bot.is_owner(interaction.user):
             print(f"CASBOT: Spamming \"{content}\" {times} times with a delay of {delay} seconds")
@@ -50,22 +50,22 @@ class Developer(commands.Cog):
             print(f"CASBOT: /spam denied user")
             await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
-    @nextcord.slash_command(description="CASbot Developer commands")
-    async def dev(self, interaction: nextcord.Interaction):
+    @discord.slash_command(description="CASbot Developer commands")
+    async def dev(self, interaction: discord.Interaction):
         None
 
     # @dev.subcommand(description="Change the bot's prescence - Dev Only")
     # async def presence(
     #     self, 
-    #     interaction: nextcord.Interaction,
-    #     status_type: str = nextcord.SlashOption(name="statustype", description="Choose the status type for the bot", required=True, choices=["online", "dnd", "idle", "invisible"]),
-    #     activity_type: str = nextcord.SlashOption(name="activitytype", description="Choose the activity type for the bot", required=True, choices=["playing", "streaming", "listening to", "watching", "competing in"]),
-    #     activity_name: str = nextcord.SlashOption(name="activityname", description="Specify the custom activity name", required=True)
+    #     interaction: discord.Interaction,
+    #     status_type: str = discord.SlashOption(name="statustype", description="Choose the status type for the bot", required=True, choices=["online", "dnd", "idle", "invisible"]),
+    #     activity_type: str = discord.SlashOption(name="activitytype", description="Choose the activity type for the bot", required=True, choices=["playing", "streaming", "listening to", "watching", "competing in"]),
+    #     activity_name: str = discord.SlashOption(name="activityname", description="Specify the custom activity name", required=True)
     # ):
     #     if await self.bot.is_owner(interaction.user):
     #         print(f"CASBOT: Changing presence to {activity_type} {activity_name} ({status_type})")
 
-    #         await self.bot.change_presence(status=self.status_types[status_type], activity=nextcord.Activity(name=activity_name, type=self.activity_types[activity_type]))
+    #         await self.bot.change_presence(status=self.status_types[status_type], activity=discord.Activity(name=activity_name, type=self.activity_types[activity_type]))
     #         await interaction.response.send_message(f":white_check_mark: Activity successfully set to **{activity_type} {activity_name}** ({status_type}).")
 
     #         ref = self.db.reference("/casbot/data/presence/")
@@ -78,7 +78,7 @@ class Developer(commands.Cog):
     #         await interaction.response.send_message(":x: Sorry, you do not have permission to use this command.")
 
     @dev.subcommand(description="Shuts down or restarts the bot - Dev Only")
-    async def shutdown(self, interaction: nextcord.Interaction):
+    async def shutdown(self, interaction: discord.Interaction):
         if await self.bot.is_owner(interaction.user):
             print(f"CASBOT: RECEIVED SHUTDOWN COMMAND")
             await interaction.response.send_message(":white_check_mark: Shutting down...")
@@ -91,9 +91,9 @@ class Developer(commands.Cog):
     @dev.subcommand(description="Makes a poll - Dev Only")
     async def poll(
         self, 
-        interaction: nextcord.Interaction, 
-        poll_content: str = nextcord.SlashOption(name="content", description="Poll content", required=True),
-        ping_role: nextcord.Role = nextcord.SlashOption(name="role", description="Role to ping", required=False)
+        interaction: discord.Interaction, 
+        poll_content: str = discord.SlashOption(name="content", description="Poll content", required=True),
+        ping_role: discord.Role = discord.SlashOption(name="role", description="Role to ping", required=False)
     ):
         if await self.bot.is_owner(interaction.user):
             print(f"CASBOT: Making poll...")
@@ -116,8 +116,8 @@ class Developer(commands.Cog):
     @dev.subcommand(description="Sends a message via the debug webhook - Dev Only")
     async def webhook(
         self,
-        interaction: nextcord.Interaction,
-        message: str = nextcord.SlashOption(name="message", description="Message to send", required=True)
+        interaction: discord.Interaction,
+        message: str = discord.SlashOption(name="message", description="Message to send", required=True)
     ):
         if await self.bot.is_owner(interaction.user):
             print(f"CASBOT: Sent {message} through debug webhook")
