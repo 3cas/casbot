@@ -24,7 +24,7 @@ class MyBot(commands.Bot):
 
 bot = MyBot()
 
-@bot.hybrid_command(name="hello", description="Test command which says hello!")
+@bot.tree.command(name="hello", description="Test command which says hello!")
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message("Hello there!")
 
