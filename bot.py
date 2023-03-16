@@ -3,6 +3,9 @@ from discord.ext import commands
 import dotenv
 import os
 import aiohttp
+import random
+
+from cogs.misc import Miscellaneous
 
 dotenv.load_dotenv()
 TOKEN = os.getenv("CASBOT_TOKEN")
@@ -22,19 +25,25 @@ class MyBot(commands.Bot):
             self.tree.copy_global_to(guild=guild)
         await self.tree.sync()
 
-bot = MyBot()
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
+
+bot = MyBot(intents=intents)
+
+# bot.add_cog(Miscellaneous(bot))
 
 @bot.tree.command(name="hello", description="Test command which says hello!")
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message("Hello there!")
 
-@bot.tree.command(name="fanfiction", description="Writes Walter Clements fanfiction.")
+@bot.tree.command(name="fanfiction", description="Writes Konata fanfiction.")
 async def fanfiction(interaction: discord.Interaction):
     await interaction.response.defer()
 
     url = "https://api.deepai.org/api/text-generator"
     headers = {"api-key": DEEPAI_KEY}
-    data = {"text": (None, "my name is Walter Clements. i like fire trucks and moster trucks.")}
+    data = {"text": (None, "Write some Konata Izumi fanfiction.")}
 
     async with aiohttp.ClientSession() as session:
         async with session.post(url, headers=headers, data=data) as response:
@@ -44,5 +53,25 @@ async def fanfiction(interaction: discord.Interaction):
                 result = await response.text()
 
     await interaction.followup.send(result)
+
+@bot.tree.command(name="konata", description="Sends a random konata image.")
+async def konata(interaction: discord.Interaction):
+    page = random.randint(1, 29)
+    url = f"https://konachan.net/post.json?page={page}&tags=izumi_konata"
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                result = await response.json()
+
+        for post in result:
+            if post["rating"] != "s":
+                result.remove(post)
+
+        image_url = random.choice(result)["file_url"]
+        await interaction.response.send_message(image_url)
+    
+    except Exception as e:
+        await interaction.response.send_message(f"Sorry, something went wrong. Tell weirdcease#0001: `{e}`")
 
 bot.run(TOKEN)

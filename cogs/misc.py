@@ -12,22 +12,19 @@ class Miscellaneous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @discord.slash_command(description="Gets a random Kanye quote")
+    @commands.command(description="Gets a random Kanye quote")
     async def kanyequote(self, interaction: discord.Interaction):
-        print("CASBOT: Running /kanyequote")
         quote = requests.get("https://api.kanye.rest/").json()["quote"]
         embed = discord.Embed(color=discord.Color.from_rgb(0, 0, 0), title="Kanye Quote", description=f"\"{quote}\"\n\t- Kanye West")
         await interaction.response.send_message(embed=embed)
 
-    @discord.slash_command(description="Gets a random anime catgirl")
+    @commands.command(description="Gets a random anime catgirl")
     async def neko(self, interaction: discord.Interaction):
-        print("CASBOT: Running /neko")
         neko_img = requests.get("https://nekos.best/api/v2/neko").json()["results"][0]["url"]
         await interaction.response.send_message(neko_img)
 
-    @discord.slash_command(description="Gets a random doge (shibe) image")
+    @commands.command(description="Gets a random doge (shibe) image")
     async def doge(self, interaction: discord.Interaction):
-        print("CASBOT: Running /doge")
         doge_img = requests.get("http://shibe.online/api/shibes").json()[0]
         await interaction.response.send_message(doge_img)
 
@@ -67,22 +64,22 @@ class Miscellaneous(commands.Cog):
     #     except Exception as e:
     #         await interaction.response.send_message(":x: ERROR: "+str(e))
 
-    @discord.slash_command(description="Sends colored code block text using ANSI codes")
-    async def colortext(
-        self,
-        interaction: discord.Interaction,
-        text: str = discord.SlashOption(name="text", description="Text you want to colorize - You can use %n to insert a new line", required=True),
-        style: str = discord.SlashOption(name="format", description="Bold or underline (optional)", required=False, choices=["bold", "underline"]),
-        color: str = discord.SlashOption(name="color", description="Color of the text (optional)", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
-        background: str = discord.SlashOption(name="background", description="Color of the background/highlight (optional)", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
-    ):
-        print("CASBOT: Running /colortext")
+    # @discord.slash_command(description="Sends colored code block text using ANSI codes")
+    # async def colortext(
+    #     self,
+    #     interaction: discord.Interaction,
+    #     text: str = discord.SlashOption(name="text", description="Text you want to colorize - You can use %n to insert a new line", required=True),
+    #     style: str = discord.SlashOption(name="format", description="Bold or underline (optional)", required=False, choices=["bold", "underline"]),
+    #     color: str = discord.SlashOption(name="color", description="Color of the text (optional)", required=False, choices=["gray", "red", "green", "yellow", "blue", "pink", "cyan", "white"]),
+    #     background: str = discord.SlashOption(name="background", description="Color of the background/highlight (optional)", required=False, choices=["firefly dark blue", "orange", "marble blue", "grayish turquoise", "gray", "indigo", "light gray", "white"])
+    # ):
+    #     print("CASBOT: Running /colortext")
 
-        text = "\n".join(text.split("%n"))
+    #     text = "\n".join(text.split("%n"))
 
-        style = {None: 0, "bold": 1, "underline": 4}[style]
-        color = {None: None, "gray": 30, "red": 31, "green": 32, "yellow": 33, "blue": 34, "pink": 35, "cyan": 36, "white": 37}[color]
-        background = {None: None, "firefly dark blue": 40, "orange": 41, "marble blue": 42, "grayish turquoise": 43, "gray": 44, "indigo": 45, "light gray": 46, "white": 47}[background]
+    #     style = {None: 0, "bold": 1, "underline": 4}[style]
+    #     color = {None: None, "gray": 30, "red": 31, "green": 32, "yellow": 33, "blue": 34, "pink": 35, "cyan": 36, "white": 37}[color]
+    #     background = {None: None, "firefly dark blue": 40, "orange": 41, "marble blue": 42, "grayish turquoise": 43, "gray": 44, "indigo": 45, "light gray": 46, "white": 47}[background]
 
-        color_string = f"\u001b[{style}{';'+str(color) if color else ''}{';'+str(background) if background else ''}m{text}"
-        await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\nCopy everything below this to use it elsewhere:\n\n\`\`\`ansi\n{color_string}\n\`\`\`")
+    #     color_string = f"\u001b[{style}{';'+str(color) if color else ''}{';'+str(background) if background else ''}m{text}"
+    #     await interaction.response.send_message(f"Preview of your text:\n```ansi\n{color_string}\n```\nCopy everything below this to use it elsewhere:\n\n\`\`\`ansi\n{color_string}\n\`\`\`")
