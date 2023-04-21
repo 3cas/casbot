@@ -9,7 +9,6 @@
 CAS's main Discord bot, CASbot.
 
 Features:
-* `/kanyequote` - Get a random Kanye West quote
 * `/doge` - Get a random Shiba Inu image
 * `/usernote` - Set and retrieve user-linked notes
 * `/neko` - Get a random anime catgirl image
