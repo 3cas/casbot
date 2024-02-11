@@ -29,7 +29,7 @@ def now():
 
 starter_items = ["hamburger", "alcohol", "slot_token", "blueberries", "cheese", "cookie", "thc_cart"]
 
-class Miscellaneous(commands.Cog):
+class Economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.con = sqlite3.connect(DB_NAME)
