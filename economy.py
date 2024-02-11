@@ -101,4 +101,4 @@ class Miscellaneous(commands.Cog):
             else:
                 items_dict[item] = 1
 
-        await inter.response.send_message(f"You have **${bank}** in the bank, **${wallet}** in your wallet, and the following items:\n{'Nn'.join(['- '+items_dict[item]+'x '+item for item in items]).replace("Nn","\n")}")
+        await inter.response.send_message(f"You have **${bank}** in the bank, **${wallet}** in your wallet, and the following items:\n{'Nn'.join(['- '+items_dict[item]+'x '+item for item in items]).replace('Nn','\n')}")
