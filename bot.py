@@ -32,8 +32,10 @@ intents.message_content = True
 
 bot = MyBot(intents=intents)
 
-bot.add_cog(Miscellaneous(bot))
-bot.add_cog(Economy(bot))
+@bot.event
+async def on_ready():
+    await bot.add_cog(Miscellaneous(bot))
+    await bot.add_cog(Economy(bot))
 
 @bot.tree.command(name="hello", description="Test command which says hello!")
 async def hello(interaction: discord.Interaction):
