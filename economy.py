@@ -62,7 +62,7 @@ class Miscellaneous(commands.Cog):
         disc_id = inter.user.id
         ban = self.cur.execute("SELECT time, until, reason FROM bans WHERE user = ? AND until < ?;", (disc_id, now())).fetchone()
         if ban:
-            await inter.response.send_message(f":warning: **You have been banned** from the economy system.\nBanned at: {datetime.strftime(ban[0], "%d %B %Y at %I:%M")}\n- Reason: {ban[2]}\n- Until: {datetime.strftime(ban[1], "%d %B %Y at %I:%M")}\n\nYou will not be able to access the service while banned. You can appeal this ban by contacting Discord user @dogocean1.", ephemeral=True)
+            await inter.response.send_message(f":warning: **You have been banned** from the economy system.\nBanned at: {datetime.strftime(ban[0], '%d %B %Y at %I:%M')}\n- Reason: {ban[2]}\n- Until: {datetime.strftime(ban[1], '%d %B %Y at %I:%M')}\n\nYou will not be able to access the service while banned. You can appeal this ban by contacting Discord user @dogocean1.", ephemeral=True)
 
         bal = self.cur.execute("SELECT balance FROM users WHERE did = ?", (disc_id,)).fetchone()
         if not bal:
