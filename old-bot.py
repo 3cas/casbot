@@ -7,7 +7,7 @@ import os
 import dotenv
 
 from cogs.dev import Developer
-from cogs.misc import Miscellaneous
+from misc import Miscellaneous
 from cogs.meta import Meta
 
 def run(TOKEN: str, debug: nextcord.SyncWebhook, log: bool = False):

@@ -5,7 +5,8 @@ import os
 import aiohttp
 import random
 
-from cogs.misc import Miscellaneous
+from misc import Miscellaneous
+from economy import Economy
 
 dotenv.load_dotenv()
 TOKEN = os.getenv("CASBOT_TOKEN")
@@ -31,7 +32,8 @@ intents.message_content = True
 
 bot = MyBot(intents=intents)
 
-# bot.add_cog(Miscellaneous(bot))
+bot.add_cog(Miscellaneous(bot))
+bot.add_cog(Economy(bot))
 
 @bot.tree.command(name="hello", description="Test command which says hello!")
 async def hello(interaction: discord.Interaction):
