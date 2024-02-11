@@ -93,7 +93,7 @@ class Miscellaneous(commands.Cog):
         did = inter.user.id
         items = self.cur.execute("SELECT type FROM items WHERE owner = ?;", (did,)).fetchall()
         bank, wallet = self.cur.execute("SELECT bank, wallet FROM users WHERE did = ?;", (did,)).fetchone()
-        
+
         items_dict = {}
         for item in items:
             if item in items_dict:
@@ -101,4 +101,4 @@ class Miscellaneous(commands.Cog):
             else:
                 items_dict[item] = 1
 
-        await inter.response.send_message(f"You have **${bank}** in the bank, **${wallet}** in your wallet, and the following items:\n{'Nn'.join(['- '+items_dict[item]+'x '+item for item in items]).replace('Nn','\n')}")
+        await inter.response.send_message(f"You have **${bank}** in the bank, **${wallet}** in your wallet, and the following items:\n{'Nn'.join(['- '+items_dict[item]+'x '+item for item in items])}".replace("Nn", "\n"))
